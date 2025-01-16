@@ -49,7 +49,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       // const NEW_IMPLEMENTATION       = "0x1b05Bb1183323e91DF6D5a7D70097d8F736243cD"  // 2024/08/22: add deposit amount
       // const NEW_IMPLEMENTATION       = "0x76A55079fAdDe2D78207A7A592D2A4BeDaD0B03c"  // 2024/08/22: remove upgrade timestamp
       // const NEW_IMPLEMENTATION       = "0xD34C6E48A9eF73f6170Eb0939c9620d174622462"  // 2024/08/23: bug in getUserInfo
-      const NEW_IMPLEMENTATION          = "0xEaa11898B68b868579c1d6883EcDCD95cD523F3c"  // 2024/08/23: Allow auto-offset within 24 hours even if it is closed.
+      // const NEW_IMPLEMENTATION       = "0xEaa11898B68b868579c1d6883EcDCD95cD523F3c"  // 2024/08/23: Allow auto-offset within 24 hours even if it is closed.
+      const NEW_IMPLEMENTATION          = "0x53Db58E5588e780CFb963dAfA5F1B88F9997aFF4"  // 2025/01/16: Support withdrawing to diffrent receiver
 
       console.log("Updating greenPower: ", greenPowerAddress, defaultGasPrice.toString());  
 
@@ -141,6 +142,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // 2025/01/07: upgrade:  Support withdrawing to diffrent receiver
 // yarn deploy:matic_test:GreenPowerU
 // 0x39AEeb209dd31c7Ea30E6aFD42994F75526994E5
+
+// 2025/01/16: upgrade:  Support withdrawing to diffrent receiver
+// yarn deploy:matic:GreenPowerU
+// 0x53Db58E5588e780CFb963dAfA5F1B88F9997aFF4
 
 func.tags = ["GreenPowerU"];
 

@@ -11,7 +11,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const { deploy } = deployments;
     const { deployer } = await getNamedAccounts();
 
-    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(50_000_000_000)
+    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(35_000_000_000)
 
     let akre : string = ''
     let kWh : string = ''
@@ -121,6 +121,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // 2025/01/07
 // yarn deploy:matic_test:GreenPowerD     : Amoy testnet (Dev Anv): Support withdrawing to diffrent receiver
 // Implementaion:        0x39AEeb209dd31c7Ea30E6aFD42994F75526994E5
+
+// 2025/01/16
+// yarn deploy:matic:GreenPowerD          : Polygon mainnet: Support withdrawing to diffrent receiver
+// Implementaion:        0x53Db58E5588e780CFb963dAfA5F1B88F9997aFF4
 
 func.tags = ["GreenPowerD"];
 
