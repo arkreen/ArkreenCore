@@ -821,7 +821,7 @@ describe("GreenBTC2S Test Campaign", ()=>{
         let greenizetx
         await expect(greenizetx = await greenBTC2S.connect(owner1).makeGreenBox(1,123))
                 .to.emit(greenBTC2S, 'DomainGreenizedNode')
-                .withArgs(owner1.address, 0x12ABC, owner1.address, 20, 1, anyValue, 1, BigNumber.from(0), BigNumber.from(123))
+                .withArgs(owner1.address, 1, anyValue, 1, BigNumber.from(0), BigNumber.from(123), 0x12ABC, owner1.address, 20)
                 
         const receipt = await greenizetx.wait()
         console.log('makeGreenBox gas usage:', receipt.gasUsed )
@@ -842,7 +842,7 @@ describe("GreenBTC2S Test Campaign", ()=>{
         const amountWithMode = BigNumber.from(456).add(BigNumber.from(1).shl(255))
         await expect( greenBTC2S.connect(owner1).makeGreenBox(1, amountWithMode))
                 .to.emit(greenBTC2S, 'DomainGreenizedNode')
-                .withArgs(owner1.address, 0x12ABC, owner1.address, 20, 3, anyValue, 1, BigNumber.from(123+234), amountWithMode)
+                .withArgs(owner1.address, 3, anyValue, 1, BigNumber.from(123+234), amountWithMode, 0x12ABC, owner1.address, 20)
                 .to.emit(kWhToken, 'Transfer')
                 .withArgs(greenBTC2S.address, constants.AddressZero, expandTo9Decimals(456).div(10).mul(20).div(100))
                 .to.emit(kWhToken, 'Transfer')

@@ -77,8 +77,7 @@ contract GreenBTC2S is
 
     event DomainRegistered(uint256 domainID, bytes32 domainInfo);
     event DomainGreenized(address gbtcActor, uint256 actionNumber, uint256 blockHeight, uint256 domainID, uint256 boxStart, uint256 boxNumber);
-    event DomainGreenizedNode(address gbtcActor, uint256 nodeId, address nodeOwner, uint256 percentage,
-                                        uint256 actionNumber, uint256 blockHeight, uint256 domainID, uint256 boxStart, uint256 boxNumber);
+    event DomainGreenizedNode(address gbtcActor, uint256 actionNumber, uint256 blockHeight, uint256 domainID, uint256 boxStart, uint256 boxNumber, uint256 nodeId, address nodeOwner, uint256 percentage);
     event DomainGreenizedLucky(address gbtcActor, uint256 actionNumber, uint256 blockHeight, uint256 domainID, uint256 boxStart, uint256 boxNumber, uint256 nonce);
     event KWhDeposit(uint256 amount);
     event BuyNode(uint256 nodeId, address owner, uint256 percentage, uint256 amountEnergy);
@@ -243,8 +242,8 @@ contract GreenBTC2S is
             emit DomainGreenized(msg.sender, actionID, block.number, domainID, boxMadeGreen, boxStepsSaved);
             IkWhToken(kWhToken).burnFrom(msg.sender, kWhAmount);
         } else {
-            emit DomainGreenizedNode(msg.sender, nodeId, nodeInfo[nodeId].owner, nodeInfo[nodeId].percentage,
-                                        actionID, block.number, domainID, boxMadeGreen, boxStepsSaved);
+            emit DomainGreenizedNode(msg.sender, actionID, block.number, domainID, boxMadeGreen, boxStepsSaved,
+                                        nodeId, nodeInfo[nodeId].owner, nodeInfo[nodeId].percentage);
 
             uint256 kWhAmountOwner = kWhAmount * nodeInfo[nodeId].percentage / 100;
             IkWhToken(kWhToken).burn(kWhAmountOwner);

@@ -64,6 +64,9 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:matic:GreenBTC2SD        : Polygon mainnet: Upgrade to support Node Feature
 // Implementaion:        0x86F6E189EFAe31747c6e3fE8A39D323958eC2680
 
+// 2025/01/17
+// yarn deploy:matic_test:GreenBTC2SD   : Amoy testnet: change the order of Node event data 
+// Implementaion:        0x138E8e06F64ef9aAd795b7bF90E04004eb5E7463
 
 func.tags = ["GreenBTC2SD"];
 

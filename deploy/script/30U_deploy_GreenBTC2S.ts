@@ -23,8 +23,9 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       const greenPowerAddress = "0x6729b2956e8Cf3d863517E4618C3d8722548D5C4"
       //const NEW_IMPLEMENTATION ="0xA649E9B886d2A1A1713268Ef6BC05E89A22a5436"
       //const NEW_IMPLEMENTATION ="0x9ab6a15F421FA92eE8111cD096dc37C7859Cb4c9"
-      //const NEW_IMPLEMENTATION ="0xb6505E881680a45eCb0469dd8BB4b39a85105a3a"    // 2024/11/06: DomainGreenizedLucky changed
-      const NEW_IMPLEMENTATION ="0xaaD01c0431d832641708E8d288bd37e2FA91D9cD"      // 2025/01/10: Support Node feature
+      //const NEW_IMPLEMENTATION ="0xb6505E881680a45eCb0469dd8BB4b39a85105a3a"      // 2024/11/06: DomainGreenizedLucky changed
+      //const NEW_IMPLEMENTATION ="0xaaD01c0431d832641708E8d288bd37e2FA91D9cD"      // 2025/01/10: Support Node feature
+      const NEW_IMPLEMENTATION ="0x138E8e06F64ef9aAd795b7bF90E04004eb5E7463"        // 2024/01/17: Change the order of Node event data  
 
       console.log("Updating GreenBTC2S: ", greenPowerAddress, defaultGasPrice.toString());  
 
@@ -49,7 +50,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       //const NEW_IMPLEMENTATION ="0xa7181d53d4451973Adf130eB5a56DdA7C41B4b3D"                  // 2024/10/23
       //const NEW_IMPLEMENTATION ="0xC1C64F4e9627221deefab278107f8Ddea3B25Ab2"                  // 2024/11/13
       //const NEW_IMPLEMENTATION ="0x48DF869C1c8c1eecBFFbc6d2E62857D30bc83dAa"                  // 2024/12/12
-      const NEW_IMPLEMENTATION ="0x86F6E189EFAe31747c6e3fE8A39D323958eC2680"                    // 2024/01/15
+      const NEW_IMPLEMENTATION ="0x86F6E189EFAe31747c6e3fE8A39D323958eC2680"                  // 2024/01/15
 
       console.log("Updating GreenBTC2S: ", greenBTC2S, defaultGasPrice.toString());  
 
@@ -117,6 +118,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:matic:GreenBTC2SU:   Polygon mainnet, add Buy node
 // Proxy:                 0x3221F5818A5CF99e09f5BE0E905d8F145935e3E0
 // Implementaion:         0x86F6E189EFAe31747c6e3fE8A39D323958eC2680
+
+// 2025/01/17
+// yarn deploy:matic_test:GreenBTC2SU:  Amoy testnet, change the order of Node event data  
+// Proxy:                 0x6729b2956e8Cf3d863517E4618C3d8722548D5C4
+// Implementaion:         0x138E8e06F64ef9aAd795b7bF90E04004eb5E7463
 
 func.tags = ["GreenBTC2SU"];
 
