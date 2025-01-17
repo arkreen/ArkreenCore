@@ -1,0 +1,655 @@
+{
+    "domains": [
+        {
+            "domain_id": 1,
+            "domain_key": "greenbtcv2",
+            "domain_name": "GreenBTC v2",
+            "domain_square": {
+                "x": 0,
+                "y": 320,
+                "h": 64,
+                "w": 64
+            },
+            "region": [163840, 163903, 196159, 196096],
+            "box_price": 10,
+            "box_top": 669611,
+            "box_prize_total": 65536,
+            "box_prize": [
+                {
+                    "token_key": "akre",
+                    "token_amount": 3000,
+                    "token_rate": 13,
+                    "level":1
+                },
+                {
+                    "token_key": "akre",
+                    "token_amount": 1000,
+                    "token_rate": 52,
+                    "level":1
+                },
+                {
+                    "token_key": "akre",
+                    "token_amount": 400,
+                    "token_rate": 328,
+                    "level":1
+                },
+                {
+                    "token_key": "akre",
+                    "token_amount": 200,
+                    "token_rate": 655,
+                    "level":1
+                },
+                {
+                    "token_key": "kwh",
+                    "token_amount": 55,
+                    "token_rate": 2621,
+                    "level":2
+                },
+                {
+                    "token_key": "kwh",
+                    "token_amount": 3,
+                    "token_rate": 9437,
+                    "level":2
+                },
+                {
+                    "token_key": "kwh",
+                    "token_amount": 2,
+                    "token_rate": 13107,
+                    "level":3
+                },
+                {
+                    "token_key": "gem",
+                    "token_amount": 1,
+                    "token_rate": 39323,
+                    "level":3
+                }
+            ]
+        },
+        {
+            "domain_id": 2,
+            "domain_key": "pepe",
+            "domain_name": "PEPE",
+            "domain_square": {
+                "x": 64,
+                "y": 320,
+                "h": 64,
+                "w": 64
+            },
+            "region": [163904, 163967, 196223, 196160],
+            "box_price": 10,
+            "box_top": 671883,
+            "box_prize_total": 65536,
+            "box_prize": [
+                {
+                    "token_key": "gem",
+                    "token_amount": 600,
+                    "token_rate": 66,
+                    "level":1
+                },
+                {
+                    "token_key": "gem",
+                    "token_amount": 300,
+                    "token_rate": 131,
+                    "level":1
+                },
+                {
+                    "token_key": "gem",
+                    "token_amount": 70,
+                    "token_rate": 655,
+                    "level":1
+                },
+                {
+                    "token_key": "kwh",
+                    "token_amount": 50,
+                    "token_rate": 983,
+                    "level":2
+                },
+                {
+                    "token_key": "kwh",
+                    "token_amount": 20,
+                    "token_rate": 1966,
+                    "level":2
+                },
+                {
+                    "token_key": "gem",
+                    "token_amount": 10,
+                    "token_rate": 13107,
+                    "level":3
+                },
+                {
+                    "token_key": "gem",
+                    "token_amount": 5,
+                    "token_rate": 19661,
+                    "level":3
+                },
+                {
+                    "token_key": "kwh",
+                    "token_amount": 1,
+                    "token_rate": 28967,
+                    "level":3
+                }
+            ]
+        },
+        {
+            "domain_id": 3,
+            "domain_key": "greenbtcv3-G",
+            "domain_name": "GreenBTC v3 - G",
+            "domain_square": {
+                "x": 384,
+                "y": 256,
+                "h": 16,
+                "w": 16
+            },
+            "region": [131456, 131471, 139151, 139136],
+            "box_price": 10,
+            "box_top": 172584,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 11,
+            "domain_key": "12AAC",
+            "domain_name": "12AAC",
+            "domain_square": {
+                "x": 384,
+                "y": 272,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                139648,
+                139663,
+                147343,
+                147328
+            ],
+            "box_price": 10,
+            "box_top": 64632,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 12,
+            "domain_key": "12AAD",
+            "domain_name": "12AAD",
+            "domain_square": {
+                "x": 400,
+                "y": 272,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                139664,
+                139679,
+                147359,
+                147344
+            ],
+            "box_price": 10,
+            "box_top": 65034,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 13,
+            "domain_key": "12ABC",
+            "domain_name": "12ABC",
+            "domain_square": {
+                "x": 416,
+                "y": 272,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                139680,
+                139695,
+                147375,
+                147360
+            ],
+            "box_price": 10,
+            "box_top": 65032,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 14,
+            "domain_key": "12ABD",
+            "domain_name": "12ABD",
+            "domain_square": {
+                "x": 432,
+                "y": 272,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                139696,
+                139711,
+                147391,
+                147376
+            ],
+            "box_price": 10,
+            "box_top": 65018,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 15,
+            "domain_key": "12BAC",
+            "domain_name": "12BAC",
+            "domain_square": {
+                "x": 448,
+                "y": 272,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                139712,
+                139727,
+                147407,
+                147392
+            ],
+            "box_price": 10,
+            "box_top": 65234,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 16,
+            "domain_key": "12BAD",
+            "domain_name": "12BAD",
+            "domain_square": {
+                "x": 464,
+                "y": 272,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                139728,
+                139743,
+                147423,
+                147408
+            ],
+            "box_price": 10,
+            "box_top": 65457,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 17,
+            "domain_key": "12BBC",
+            "domain_name": "12BBC",
+            "domain_square": {
+                "x": 480,
+                "y": 272,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                139744,
+                139759,
+                147439,
+                147424
+            ],
+            "box_price": 10,
+            "box_top": 65801,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 18,
+            "domain_key": "12BBD",
+            "domain_name": "12BBD",
+            "domain_square": {
+                "x": 496,
+                "y": 272,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                139760,
+                139775,
+                147455,
+                147440
+            ],
+            "box_price": 10,
+            "box_top": 66330,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 19,
+            "domain_key": "12ACA",
+            "domain_name": "12ACA",
+            "domain_square": {
+                "x": 384,
+                "y": 288,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                147840,
+                147855,
+                155535,
+                155520
+            ],
+            "box_price": 10,
+            "box_top": 9746,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 20,
+            "domain_key": "12ACB",
+            "domain_name": "12ACB",
+            "domain_square": {
+                "x": 400,
+                "y": 288,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                147856,
+                147871,
+                155551,
+                155536
+            ],
+            "box_price": 10,
+            "box_top": 9661,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 21,
+            "domain_key": "12ADA",
+            "domain_name": "12ADA",
+            "domain_square": {
+                "x": 416,
+                "y": 288,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                147872,
+                147887,
+                155567,
+                155552
+            ],
+            "box_price": 10,
+            "box_top": 9649,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 22,
+            "domain_key": "12ADB",
+            "domain_name": "12ADB",
+            "domain_square": {
+                "x": 432,
+                "y": 288,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                147888,
+                147903,
+                155583,
+                155568
+            ],
+            "box_price": 10,
+            "box_top": 9680,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 23,
+            "domain_key": "12BCA",
+            "domain_name": "12BCA",
+            "domain_square": {
+                "x": 448,
+                "y": 288,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                147904,
+                147919,
+                155599,
+                155584
+            ],
+            "box_price": 10,
+            "box_top": 9692,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 24,
+            "domain_key": "12BCB",
+            "domain_name": "12BCB",
+            "domain_square": {
+                "x": 464,
+                "y": 288,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                147920,
+                147935,
+                155615,
+                155600
+            ],
+            "box_price": 10,
+            "box_top": 9703,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 25,
+            "domain_key": "12BDA",
+            "domain_name": "12BDA",
+            "domain_square": {
+                "x": 480,
+                "y": 288,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                147936,
+                147951,
+                155631,
+                155616
+            ],
+            "box_price": 10,
+            "box_top": 8763,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 26,
+            "domain_key": "12BDB",
+            "domain_name": "12BDB",
+            "domain_square": {
+                "x": 496,
+                "y": 288,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                147952,
+                147967,
+                155647,
+                155632
+            ],
+            "box_price": 10,
+            "box_top": 8787,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 27,
+            "domain_key": "12ACC",
+            "domain_name": "12ACC",
+            "domain_square": {
+                "x": 384,
+                "y": 304,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                156032,
+                156047,
+                163727,
+                163712
+            ],
+            "box_price": 10,
+            "box_top": 20736,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 28,
+            "domain_key": "12ACD",
+            "domain_name": "12ACD",
+            "domain_square": {
+                "x": 400,
+                "y": 304,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                156048,
+                156063,
+                163743,
+                163728
+            ],
+            "box_price": 10,
+            "box_top": 20820,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 29,
+            "domain_key": "12ADC",
+            "domain_name": "12ADC",
+            "domain_square": {
+                "x": 416,
+                "y": 304,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                156064,
+                156079,
+                163759,
+                163744
+            ],
+            "box_price": 10,
+            "box_top": 20993,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 30,
+            "domain_key": "12ADD",
+            "domain_name": "12ADD",
+            "domain_square": {
+                "x": 432,
+                "y": 304,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                156080,
+                156095,
+                163775,
+                163760
+            ],
+            "box_price": 10,
+            "box_top": 21060,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 31,
+            "domain_key": "12BCC",
+            "domain_name": "12BCC",
+            "domain_square": {
+                "x": 448,
+                "y": 304,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                156096,
+                156111,
+                163791,
+                163776
+            ],
+            "box_price": 10,
+            "box_top": 21233,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 32,
+            "domain_key": "12BCD",
+            "domain_name": "12BCD",
+            "domain_square": {
+                "x": 464,
+                "y": 304,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                156112,
+                156127,
+                163807,
+                163792
+            ],
+            "box_price": 10,
+            "box_top": 21723,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 33,
+            "domain_key": "12BDC",
+            "domain_name": "12BDC",
+            "domain_square": {
+                "x": 480,
+                "y": 304,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                156128,
+                156143,
+                163823,
+                163808
+            ],
+            "box_price": 10,
+            "box_top": 21723,
+            "box_prize_total": 65536,
+            "box_prize": []
+        },
+        {
+            "domain_id": 34,
+            "domain_key": "12BDD",
+            "domain_name": "12BDD",
+            "domain_square": {
+                "x": 496,
+                "y": 304,
+                "h": 16,
+                "w": 16
+            },
+            "region": [
+                156144,
+                156159,
+                163839,
+                163824
+            ],
+            "box_price": 10,
+            "box_top": 21728,
+            "box_prize_total": 65536,
+            "box_prize": []
+        }
+
+    ]
+}

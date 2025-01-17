@@ -9,6 +9,30 @@ import { ecsign, fromRpcSig, ecrecover } from 'ethereumjs-util'
 
 import { BigNumber, utils } from "ethers";
 import { config as dotEnvConfig } from "dotenv"
+import * as fs from "fs"
+
+interface Position { x: number, y: number, h: number, w: number }
+
+interface DomainInfo {
+  domain_id:          number
+  domain_key:         string
+  domain_name:        string
+  domain_square:      Position
+  region:             number[]
+  box_price:          number
+  box_top:            number
+  box_prize_total:    number
+  box_prize:          []
+}
+
+interface Domains { domains: DomainInfo[]}
+
+function getDomainInfo(): Domains {
+  const domainFile = './deploy/domains.json'
+  const domainInfoString = fs.readFileSync(domainFile,'ascii')
+  const domainInfoJson = JSON.parse(domainInfoString)
+  return domainInfoJson as Domains
+}
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const [deployer, signer] = await ethers.getSigners();
@@ -99,7 +123,49 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     // 0x04 14 04 04 000a408b 0041 0083 028f 03d7 07ae 3333 4ccd 7127 0700000000000000
 
 */
+    {
+      const domains = getDomainInfo().domains
 
+      const length = domains.length
+      for(let index = 0; index < length; index++) {
+        if (domains[index].domain_id >= 11) {
+          const domainInfoJson = domains[index]
+          const domainInfoJsonOld =   {
+                                        chance1: 66,   chance2: 131, chance3: 655, chance4: 983,
+                                        ratio1: 1966,   ratio2: 13107, ratio3: 19661, ratio4: 28967,
+                                      }
+          if (domainInfoJson.box_price != 10) return 
+
+          const nodeId = BigNumber.from('0x'+domains[index].domain_name.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))                                  
+
+          const domainInfoBigInt= BigNumber.from(domainInfoJson.domain_square.x / 16).shl(248)
+                  .add(BigNumber.from(domainInfoJson.domain_square.y / 16).shl(240))
+                  .add(BigNumber.from(domainInfoJson.domain_square.w / 16).shl(232))
+                  .add(BigNumber.from(domainInfoJson.domain_square.h / 16).shl(224))
+                  .add(BigNumber.from(domainInfoJson.box_top).shl(192))
+                  .add(BigNumber.from(domainInfoJsonOld.chance1 - 1).shl(176))     // !!!!!!!!!!
+                  .add(BigNumber.from(domainInfoJsonOld.chance2).shl(160))
+                  .add(BigNumber.from(domainInfoJsonOld.chance3).shl(144))
+                  .add(BigNumber.from(domainInfoJsonOld.chance4).shl(128))
+                  .add(BigNumber.from(domainInfoJsonOld.ratio1).shl(112))
+                  .add(BigNumber.from(domainInfoJsonOld.ratio2).shl(96))
+                  .add(BigNumber.from(domainInfoJsonOld.ratio3).shl(80))
+                  .add(BigNumber.from(domainInfoJsonOld.ratio4).shl(64))
+                  .add(nodeId.shl(32))
+                  .add(BigNumber.from(7).shl(56))                           // 10 kWh
+
+          const domainInfo = utils.defaultAbiCoder.encode(['uint256'], [domainInfoBigInt])
+          console.log("domainInfoBigInt: ", domainInfoBigInt.toHexString(), domainInfo, nodeId.toHexString())
+
+          const registerDomainTx = await GreenBTC2S.registerDomain(domains[index].domain_id, domainInfo, {gasPrice: defaultGasPrice})
+          await registerDomainTx.wait()
+      
+          console.log("GreenBTC2S registerDomain: ", hre.network.name, GreenBTC2SAddress, domains[index].domain_id, domainInfo );
+        }
+      }
+    }
+
+/*    
     // 2025/01/06: Polygon testnet
     const domainId = 3
 
@@ -142,6 +208,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     await registerDomainTx.wait()
 
     console.log("GreenBTC2S registerDomain: ", hre.network.name, GreenBTC2SAddress, domainId, domainInfo );
+*/
+
 
 //    console.log('AAAAAAAAA', deployer.address, signer.address)
 //    console.log('BBBBBBBBBBB', ethers.utils.id(deployer.address +signer.address))
