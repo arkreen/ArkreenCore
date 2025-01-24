@@ -247,6 +247,11 @@
     "deploy:matic:ArkreenPromotionD": "hardhat --network matic deploy --tags ArkreenPromotionD",
     "deploy:matic:ArkreenPromotionU": "hardhat --network matic deploy --tags ArkreenPromotionU",
 
+    "deploy:matic:RwaCSP": "hardhat --network matic deploy --tags RwaCSP",
+    "deploy:matic:RwaCSPI": "hardhat --network matic deploy --tags RwaCSPI",
+    "deploy:matic:RwaCSPD": "hardhat --network matic deploy --tags RwaCSPD",
+    "deploy:matic:RwaCSPU": "hardhat --network matic deploy --tags RwaCSPU",
+
     "storageExplorerGreenBTC:matic": "hardhat run --network matic ./deploy/storageExplorerGreenBTC.ts",
     "GreenBTCTest:matic": "hardhat run --network matic ./deploy/GreenBTCTest.ts",
     "GreenBTCTList:matic": "hardhat run --network matic ./deploy/GreenBTCTList.ts",

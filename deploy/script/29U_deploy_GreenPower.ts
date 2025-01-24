@@ -60,7 +60,6 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   
       console.log("greenPower is upgraded to %s: ", hre.network.name, greenPowerFactory.address, NEW_IMPLEMENTATION);
     } 
-
 };
 
 // 2024/07/11: upgrade:

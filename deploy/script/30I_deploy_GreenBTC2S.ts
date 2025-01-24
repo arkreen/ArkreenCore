@@ -37,7 +37,7 @@ function getDomainInfo(): Domains {
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const [deployer, signer] = await ethers.getSigners();
 
-  const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(36_000_000_000)
+  const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(150_000_000_000)
 
    
   if(hre.network.name === 'matic_test') {
@@ -273,6 +273,49 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
 */
 
+    {
+      const domains = getDomainInfo().domains
+
+      const length = domains.length
+      for(let index = 0; index < length; index++) {
+        if (domains[index].domain_id >= 11) {
+          const domainInfoJson = domains[index]
+          const domainInfoJsonOld =   {
+                                        chance1: 66,   chance2: 131, chance3: 655, chance4: 983,
+                                        ratio1: 1966,   ratio2: 13107, ratio3: 19661, ratio4: 28967,
+                                      }
+          if (domainInfoJson.box_price != 10) return 
+
+          const nodeId = BigNumber.from('0x'+domains[index].domain_name.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))                                  
+
+          const domainInfoBigInt= BigNumber.from(domainInfoJson.domain_square.x / 16).shl(248)
+                  .add(BigNumber.from(domainInfoJson.domain_square.y / 16).shl(240))
+                  .add(BigNumber.from(domainInfoJson.domain_square.w / 16).shl(232))
+                  .add(BigNumber.from(domainInfoJson.domain_square.h / 16).shl(224))
+                  .add(BigNumber.from(domainInfoJson.box_top).shl(192))
+                  .add(BigNumber.from(domainInfoJsonOld.chance1 - 1).shl(176))     // !!!!!!!!!!
+                  .add(BigNumber.from(domainInfoJsonOld.chance2).shl(160))
+                  .add(BigNumber.from(domainInfoJsonOld.chance3).shl(144))
+                  .add(BigNumber.from(domainInfoJsonOld.chance4).shl(128))
+                  .add(BigNumber.from(domainInfoJsonOld.ratio1).shl(112))
+                  .add(BigNumber.from(domainInfoJsonOld.ratio2).shl(96))
+                  .add(BigNumber.from(domainInfoJsonOld.ratio3).shl(80))
+                  .add(BigNumber.from(domainInfoJsonOld.ratio4).shl(64))
+                  .add(nodeId.shl(32))
+                  .add(BigNumber.from(7).shl(56))                           // 10 kWh
+
+          const domainInfo = utils.defaultAbiCoder.encode(['uint256'], [domainInfoBigInt])
+          console.log("domainInfoBigInt: ", domainInfoBigInt.toHexString(), domainInfo, nodeId.toHexString())
+
+          const registerDomainTx = await GreenBTC2S.registerDomain(domains[index].domain_id, domainInfo, {gasPrice: defaultGasPrice})
+          await registerDomainTx.wait()
+      
+          console.log("GreenBTC2S registerDomain: ", hre.network.name, GreenBTC2SAddress, domains[index].domain_id, domainInfo );
+        }
+      }
+    }
+
+/*
     // 2025/01/07: Polygon mainnet
     const domainId = 3
 
@@ -318,6 +361,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     await registerDomainTx.wait()
 
     console.log("GreenBTC2S registerDomain: ", hre.network.name, GreenBTC2SAddress, domainId, domainInfo );
+*/    
 
   }
 };
@@ -349,6 +393,14 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // 2025/01/07: Call registerDomain (Ploygon Mainnet): 0x3221F5818A5CF99e09f5BE0E905d8F145935e3E0
 // yarn deploy:matic:GreenBTC2SI
 // call: registerDomain to register domain 3
+
+// 2025/01/18: Call registerDomain (Amoy testnet): 0x6729b2956e8Cf3d863517E4618C3d8722548D5C4
+// yarn deploy:matic_test:GreenBTC2SI
+// call: registerDomain to register 24 domains 
+
+// 2025/01/21: Call registerDomain (Ploygon Mainnet): 0x3221F5818A5CF99e09f5BE0E905d8F145935e3E0
+// yarn deploy:matic:GreenBTC2SI
+// call: registerDomain to register 24 domains 
 
 func.tags = ["GreenBTC2SI"];
 
