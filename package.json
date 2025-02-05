@@ -251,6 +251,8 @@
     "deploy:matic:RwaCSPI": "hardhat --network matic deploy --tags RwaCSPI",
     "deploy:matic:RwaCSPD": "hardhat --network matic deploy --tags RwaCSPD",
     "deploy:matic:RwaCSPU": "hardhat --network matic deploy --tags RwaCSPU",
+    "deploy:matic:AKREVestD": "hardhat --network matic deploy --tags AKREVestD",
+    "deploy:matic:AKREVestI": "hardhat --network matic deploy --tags AKREVestI",
 
     "storageExplorerGreenBTC:matic": "hardhat run --network matic ./deploy/storageExplorerGreenBTC.ts",
     "GreenBTCTest:matic": "hardhat run --network matic ./deploy/GreenBTCTest.ts",
