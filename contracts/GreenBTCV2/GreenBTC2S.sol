@@ -42,14 +42,6 @@ contract GreenBTC2S is
         uint64      amountEnergy;
     }
 
-      struct GreenInfo {
-        uint256     boxStepsSaved;
-        uint256     kWhAmount;
-        uint24      nodeId;
-        uint256     actionID;
-        uint256     boxMadeGreen;
-      }
-
     // keccak256("makeGreenBoxLucky(uint256 domainID,uint256 boxSteps,address greener,uint256 nonce,uint256 deadline)");
     bytes32 public constant LUCKY_TYPEHASH = 0x6A10D25EB5A7B84EB21D26AF2DB8C23A1FB80647769A40DA523EDDCFFC172A10;  
 
@@ -86,7 +78,6 @@ contract GreenBTC2S is
     event DomainRegistered(uint256 domainID, bytes32 domainInfo);
     event DomainGreenized(address gbtcActor, uint256 actionNumber, uint256 blockHeight, uint256 domainID, uint256 boxStart, uint256 boxNumber);
     event DomainGreenizedNode(address gbtcActor, uint256 actionNumber, uint256 blockHeight, uint256 domainID, uint256 boxStart, uint256 boxNumber, uint256 nodeId, address nodeOwner, uint256 percentage);
-
     event DomainGreenizedLucky(address gbtcActor, uint256 actionNumber, uint256 blockHeight, uint256 domainID, uint256 boxStart, uint256 boxNumber, uint256 nonce);
     event KWhDeposit(uint256 amount);
     event BuyNode(uint256 nodeId, address owner, uint256 percentage, uint256 amountEnergy);
@@ -263,23 +254,19 @@ contract GreenBTC2S is
     }
 
     /**
-     * @dev Green the specified domain in specified steps
+     * @dev Green the specified domain in specified steps, pixels id are sent via event
      * @param domainID the domain to be greened
-     *        boxSteps steps that will green. The 2 MSB specify the lucky draw mode: msb=0, single mode, msb = 1, multiple mode  
+     *        boxSteps steps that will green. The 2 MSB specify the lucky draw mode: msb=0, single mode, msb = 1, multiple mode
+     *        pixels pixel id list
      */
     function makeGreenBoxWithPixels (uint256 domainID, uint256 boxSteps, uint256[] calldata pixels) public {
-        
         uint24  nodeId;
         uint256 actionID;
         uint256 boxMadeGreen;
         uint256 kWhAmount;
-
         {
             uint256 boxStepsSaved = boxSteps;
             boxSteps = (boxSteps<<16) >> 16;                            // Remove Flag
-
-            // boxSteps cannot be too big, boxSteps = 10000 will use more than 10,000,000 GWei for checkIfShot
-            // require ((domainID < 0x10000) && (boxSteps <= 10000), "GBC2: Over Limit");   
 
             uint256 domainInfo = uint256(domains[domainID]);
             require ( domainInfo != 0 , "GBC2: Empty Domain");
@@ -322,7 +309,6 @@ contract GreenBTC2S is
         }
     }
 
-
     /**
      * @dev Green the specified domain in specified steps paid by Arkreen for user
      * @param domainID the domain to be greened
@@ -332,7 +318,6 @@ contract GreenBTC2S is
      *        signature signature of the akreen green manager
      */
     function makeGreenBoxLucky (uint256 domainID, uint256 boxSteps, address greener, uint256 nonce, uint256 deadline, Sig calldata signature) public {
-
         uint256 boxStepsSaved = boxSteps;
         boxSteps = (boxSteps<<16) >> 16;                            // Remove Flag
 
