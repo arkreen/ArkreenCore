@@ -244,6 +244,7 @@ contract GreenBTC2S is
             emit DomainGreenized(msg.sender, actionID, block.number, domainID, boxMadeGreen, boxStepsSaved);
             IkWhToken(kWhToken).burnFrom(msg.sender, kWhAmount);
         } else {
+            require (nodeInfo[nodeId].owner != address(0) , "GBC2: Node not ready");
             emit DomainGreenizedNode(msg.sender, actionID, block.number, domainID, boxMadeGreen, boxStepsSaved,
                                         nodeId, nodeInfo[nodeId].owner, nodeInfo[nodeId].percentage);
 
@@ -301,6 +302,7 @@ contract GreenBTC2S is
             emit DomainGreenizedWithPixels(msg.sender, actionID, block.number, domainID, boxMadeGreen, boxSteps, pixels);
             IkWhToken(kWhToken).burnFrom(msg.sender, kWhAmount);
         } else {
+            require (nodeInfo[nodeId].owner != address(0) , "GBC2: Node not ready");
             emit DomainGreenizedNodeWithPixels(msg.sender, actionID, block.number, domainID, boxMadeGreen, boxSteps,
                                         nodeId, nodeInfo[nodeId].owner, nodeInfo[nodeId].percentage, pixels);
             

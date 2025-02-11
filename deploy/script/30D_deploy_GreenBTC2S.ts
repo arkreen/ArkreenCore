@@ -80,6 +80,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:matic_test:GreenBTC2SD   : Amoy testnet: add pixel flag checking
 // Implementaion:        0xA6219B1648Ee04F99B83253c8aC6507cfC9b215A
 
+// 2025/02/11
+// yarn deploy:matic_test:GreenBTC2SD   : Amoy testnet: add node_id checking
+// Implementaion:        0x00e74f864bD9Ce0E10231F942C56C72D06397c1e
+
 func.tags = ["GreenBTC2SD"];
 
 export default func;

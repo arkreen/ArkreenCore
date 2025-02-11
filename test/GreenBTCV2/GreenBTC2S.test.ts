@@ -670,7 +670,9 @@ describe("GreenBTC2S Test Campaign", ()=>{
       it("GreenBTC2S makeGreenBoxWithPixels test", async function () {
 
         const domainID = 1
-        const domainInfoString = utils.defaultAbiCoder.encode(['uint256'], [domainInfoBigInt])
+
+        const domainInfoBigIntTmp = domainInfoBigInt.add(BigNumber.from(128).shl(56))
+        const domainInfoString = utils.defaultAbiCoder.encode(['uint256'], [domainInfoBigIntTmp])
         await greenBTC2S.connect(manager).registerDomain(domainID, domainInfoString)
 
         await kWhToken.connect(owner1).approve(greenBTC2S.address, constants.MaxUint256)
@@ -960,7 +962,8 @@ describe("GreenBTC2S Test Campaign", ()=>{
 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //domainInfoBigInt = domainInfoBigInt.add(nodeId.shl(32))           // Cannot add anymore
-        const domainInfoString = utils.defaultAbiCoder.encode(['uint256'], [domainInfoBigInt])
+        const domainInfoBigIntTmp = domainInfoBigInt.add(BigNumber.from(128).shl(56))
+        const domainInfoString = utils.defaultAbiCoder.encode(['uint256'], [domainInfoBigIntTmp])
 
         // Register Domain with Node
         await greenBTC2S.connect(manager).registerDomain(domainID, domainInfoString)
