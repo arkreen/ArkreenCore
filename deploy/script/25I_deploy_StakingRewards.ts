@@ -10,7 +10,7 @@ import { expandTo18Decimals } from "../../test/utils/utilities";
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const [deployer] = await ethers.getSigners();
 
-  const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(35_000_000_000) : BigNumber.from(180_000_000_000)
+  const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(35_000_000_000) : BigNumber.from(32_000_000_000)
   
   if(hre.network.name === 'matic_test') {
     // 2024/05/21
@@ -82,8 +82,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     //const stakingRewardsAddress  = "0xc1dCE2f17362C2De4ab4F104f6f88223e0c28B95"         // 2024/006/25: Polygon Mainnet, with lock
     //const stakingRewardsAddress  = "0x0A0688fc15794035820CaDc23Db7114bAb4dE405"         // 2024/07/25A: Polygon Mainnet, 60 days lock
     //const stakingRewardsAddress  = "0x071Bed72c917859e73f99dDa41Fb6B2Ea4C08d33"         // 2024/07/25B: Polygon Mainnet, 60 days lock
-    //const stakingRewardsAddress  = "0x39c518133a60a7517eed15EA21E8A0Cf1AB66D46"         // 2024/09/29: Polygon Mainnet, 30 days AKRE lock
-    const stakingRewardsAddress   = "0xDA6E63C0be2DE7FAA29a4E8a7ca0d14F280636e5"          // 2024/09/29: Polygon Mainnet, 60 days AKRE lock
+    const stakingRewardsAddress  = "0x39c518133a60a7517eed15EA21E8A0Cf1AB66D46"         // 2024/09/29: Polygon Mainnet, 30 days AKRE lock
+    //const stakingRewardsAddress   = "0xDA6E63C0be2DE7FAA29a4E8a7ca0d14F280636e5"          // 2024/09/29: Polygon Mainnet, 60 days AKRE lock
     //const stakingRewardsAddress   = "0x1ea66a305b763ef50a16842be27Cd68Ec7F69e68"        // 2024/10/25: Polygon Mainnet, 90 days AKRE lock
     //const stakingRewardsAddress   = "0xbD7A19cb00dCc449c1e190d36826103955962997"        // 2024/11/06: Polygon Mainnet, 180 days AKRE lock
     //const stakingRewardsAddress   = "0xDfD05Fcd3d330E17151F362AB551D89CAEb40916"        // 2024/12/18: Polygon Mainnet, 365D days AKRE lock
@@ -135,11 +135,12 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const end = 1746086400      // 2025/05/01
     const rewardTotal = expandTo18Decimals(750000)
 */
-
+/*
     // 2025/02/06, Polygon mainnet: 0xDA6E63C0be2DE7FAA29a4E8a7ca0d14F280636e5 (60D)
     const start = 1738915200    // 2025/02/07
     const end = 1744099200      // 2025/04/08
     const rewardTotal = expandTo18Decimals(200000)
+*/
 
 /*
     // 2024/11/02, Polygon mainnet: 0x39c518133a60a7517eed15EA21E8A0Cf1AB66D46
@@ -152,6 +153,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const end = 1739088000      // 2025/02/09
     const rewardTotal = expandTo18Decimals(65000)
 */
+
+    // 2025/02/12, Polygon mainnet: 0x39c518133a60a7517eed15EA21E8A0Cf1AB66D46 (30D)
+    const start = 1739520000    // 2025/02/14
+    const end = 1742112000      // 2025/03/16
+    const rewardTotal = expandTo18Decimals(60000)
 
 /*
     // 2024/11/06, Polygon mainnet: 0xbD7A19cb00dCc449c1e190d36826103955962997
@@ -269,6 +275,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // 2025/02/06: Call depolyRewards (Polygon mainnet)( 60D AKRE)
 // yarn deploy:matic:StakingRewardsI
 // 0xDA6E63C0be2DE7FAA29a4E8a7ca0d14F280636e5
+
+// 2025/02/12: Call depolyRewards (Polygon mainnet)( 30D AKRE)
+// yarn deploy:matic:StakingRewardsI
+// 0x39c518133a60a7517eed15EA21E8A0Cf1AB66D46
 
 func.tags = ["StakingRewardsI"];
 
