@@ -87,6 +87,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
         const description = 	"Universal AREC ERC20 token based on redeemed classic REC assets."                        
         */
 
+/*        
         const idAsset =  "ECC Based AREC Asset"
         const rateToIssue = BigNumber.from(100).mul(BigNumber.from(10).pow(18))
         const rateToLiquidize = 1000
@@ -115,7 +116,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
         const newAsset3A = await ArkreenRegistryFactory.getAssetInfo(3)
 
         console.log("Asset Info:", newAsset1, newAsset2, newAsset3, newAsset1A, newAsset2A, newAsset3A )                                                        
-
+*/
         // 2023/05/05:    Dev Environment
         // const ArkreenRegistry_address     = '0xfEcbD33525d9B869e5f3CaB895cd6D7A666209ee'
         // const ArkreenMiner_address        = '0x682e01f8ecc0524085F51CC7dFB54fDB8729ac22'
@@ -172,6 +173,49 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
         console.log("ArkreenRegistry Initialized to %s: ", hre.network.name, ArkreenRegistryFactory.address);
 */
+        const [deployer] = await ethers.getSigners();
+        const ArkreenRegistryFactory = ArkreenRegistry__factory.connect(ArkreenRegistry_address, deployer);
+
+//      function manageAssetAREC( uint256 idxAsset, uint256 flag, uint128 rateToIssue, 
+//                    uint16 rateToLiquidize, bool bActive, string calldata description)
+
+        let rateToIssue = BigNumber.from(1000).mul(BigNumber.from(10).pow(18))
+
+        let idxAsset = 1
+        const manageAssetAREC1Tx = await ArkreenRegistryFactory.manageAssetAREC(idxAsset, 1, rateToIssue, 0, false, '',
+                                                        {gasPrice: defaultGasPrice}
+                                                        )
+        console.log("Asset Type 1 manageAssetARECTx: ", manageAssetAREC1Tx)
+        await manageAssetAREC1Tx.wait()
+
+        idxAsset = 2
+        const manageAssetAREC2Tx = await ArkreenRegistryFactory.manageAssetAREC(idxAsset, 1, rateToIssue, 0, false, '',
+                                                        {gasPrice: defaultGasPrice}
+                                                        )
+        console.log("Asset Type 2 manageAssetARECTx: ", manageAssetAREC2Tx)
+        await manageAssetAREC2Tx.wait()
+
+        idxAsset = 3
+        const manageAssetAREC3Tx = await ArkreenRegistryFactory.manageAssetAREC(idxAsset, 1, rateToIssue, 0, false, '',
+                                                        {gasPrice: defaultGasPrice}
+                                                        )
+        console.log("Asset Type 3 manageAssetARECTx: ", manageAssetAREC3Tx)
+        await manageAssetAREC3Tx.wait()
+
+        console.log("ArkreenRegistry newAssetAREC is executed: %s: ", hre.network.name, ArkreenRegistry_address);
+
+        const newAsset1 = await ArkreenRegistryFactory.allAssets(1)
+        const newAsset2 = await ArkreenRegistryFactory.allAssets(2)
+        const newAsset3 = await ArkreenRegistryFactory.allAssets(3)
+        const newAsset4 = await ArkreenRegistryFactory.allAssets(4)
+        
+        const newAsset1A = await ArkreenRegistryFactory.getAssetInfo(1)
+        const newAsset2A = await ArkreenRegistryFactory.getAssetInfo(2)
+        const newAsset3A = await ArkreenRegistryFactory.getAssetInfo(3)
+        const newAsset34 = await ArkreenRegistryFactory.getAssetInfo(4)
+
+        console.log("Asset Info:", newAsset1, newAsset2, newAsset3, newAsset4, newAsset1A, newAsset2A, newAsset3A, newAsset34 )                                                        
+
     }
 
     if(hre.network.name === 'matic') {
@@ -593,6 +637,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
 // 2024/12/24: call manageAssetAREC to update the issuance price 
 // yarn deploy:matic:gRegistryI
+
+// 2025/02/13: call manageAssetAREC to update the issuance price 
+// yarn deploy:matic_test:gRegistryI
+
 
 func.tags = ["gRegistryI"];
 
