@@ -10,7 +10,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
 
-  const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(30_000_000_000) : BigNumber.from(50_000_000_000)
+  const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(30_000_000_000) : BigNumber.from(32_000_000_000)
   
   console.log("Deploying ArkreenMinerPro: ", deployer);  
   
@@ -45,6 +45,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // 2024/11/28: yarn deploy:matic:AMinerProD 
 // Deployed on Polygon main to upgrade to fix the bug in checkListener
 // 0xc6f4ee41384c4B006a5224123860dFa4a4419922
+
+// 2025/02/14: yarn deploy:matic:AMinerProD 
+// Deployed on Polygon main to support withdrawing native token
+// 0xe440fa4480ca4bFdbFF292bb0395246F4E2f36A9
 
 export default func;
 func.tags = ["AMinerProD"];

@@ -13,7 +13,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
                           ? BigNumber.from(32_000_000_000) 
                           : (hre.network.name === 'celo')
                           ? BigNumber.from(6_000_000_000) 
-                          : BigNumber.from(250_000_000_000)
+                          : BigNumber.from(32_000_000_000)
 
   const arkreenRECBank = await deploy(CONTRACTS.ArtBank, {
       from: deployer,
@@ -57,6 +57,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // 2024/12/21: Deployed on Polygon mainnet, support removing deposited ART from bank
 // yarn deploy:matic:ArtBankD 
 // 0xBa9d6d00AB8e2937644225400F5C861eb5E18554
+
+// 2025/02/14: Deployed on Polygon mainnet, support withdrawing by owner
+// yarn deploy:matic:ArtBankD 
+// 0x3985696D7B4B594b9e00fC7CE19d1FF6D8A652e2
 
 func.tags = ["ArtBankD"];
 

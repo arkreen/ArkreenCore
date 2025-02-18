@@ -9,7 +9,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const { deploy } = deployments;
     const { deployer } = await getNamedAccounts();
 
-    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(100_000_000_000)
+    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(32_000_000_000)
    
     console.log("Deploying: ", "GreenBTC2S", deployer);  
 
@@ -83,6 +83,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // 2025/02/11
 // yarn deploy:matic_test:GreenBTC2SD   : Amoy testnet: add node_id checking
 // Implementaion:        0x00e74f864bD9Ce0E10231F942C56C72D06397c1e
+
+// 2025/02/18
+// yarn deploy:matic:GreenBTC2SD   : Polygon mainnet: add pixel feature
+// Implementaion:        0x511De1993153F096eBa7651f8779a738474C91Df
 
 func.tags = ["GreenBTC2SD"];
 

@@ -265,6 +265,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       await addNewARTTRx.wait()
 */
 
+/*
       // 2024/04/30, addNewART ART
       const addNewARTTRx = await ArkreenRECBankFactory.addNewART(ART_AREC, ART_CONTROLLER, {gasPrice: defaultGasPrice});
       await addNewARTTRx.wait()
@@ -287,6 +288,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       const approveTrx = await ArkreenRECTokenFactory.connect(controller).approve(RECBANK_ADDRESS as string, 
                                           constants.MaxUint256, {gasPrice: defaultGasPrice} )
       await approveTrx.wait()
+*/
 
 /*      
       // Called by controller, Account 2
@@ -324,6 +326,13 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
                                         BigNumber.from(5000).mul(BigNumber.from(10).pow(9)))      // 5000 HART
       await depositARTTrx.wait()   
   */
+
+      const withdrawUSDC = await ArkreenRECBankFactory.withdraw(ART_AREC, USDC_ADDRESS, {gasPrice: defaultGasPrice})
+      await withdrawUSDC.wait()   
+
+      const withdrawUSDT = await ArkreenRECBankFactory.withdraw(ART_AREC, USDT_ADDRESS, {gasPrice: defaultGasPrice})
+      await withdrawUSDT.wait()   
+
       console.log("ArkreenRECBank Price is updated: ", hre.network.name, new Date().toLocaleString(),
                                 ArkreenRECBankFactory.address,
                                 RECBANK_ADDRESS, HART_AREC, ART_CONTROLLER, BUILDER_ADDRESS,
@@ -550,6 +559,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // Action 1 (ART): addNewART 
 // Action 2 (ART): changeSalePrice(USDC), changeSalePrice(USDT)
 // Action 3 (ART): approve(RECBANK_ADDRESS)
+
+// 2025/02/14
+// yarn deploy:matic:ArtBankI
+// Withdraw ART -> USDC/USDT
 
 func.tags = ["ArtBankI"];
 

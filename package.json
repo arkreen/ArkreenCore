@@ -242,6 +242,7 @@
     "deploy:matic:PlugMinerSales": "hardhat --network matic deploy --tags PlugMinerSales",
     "deploy:matic:PlugMinerSalesD": "hardhat --network matic deploy --tags PlugMinerSalesD",
     "deploy:matic:PlugMinerSalesU": "hardhat --network matic deploy --tags PlugMinerSalesU",
+    "deploy:matic:PlugMinerSalesI": "hardhat --network matic deploy --tags PlugMinerSalesI",
     "deploy:matic:ArkreenPromotion": "hardhat --network matic deploy --tags ArkreenPromotion",
     "deploy:matic:ArkreenPromotionI": "hardhat --network matic deploy --tags ArkreenPromotionI",
     "deploy:matic:ArkreenPromotionD": "hardhat --network matic deploy --tags ArkreenPromotionD",

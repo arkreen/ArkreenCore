@@ -54,9 +54,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       //const NEW_IMPLEMENTATION ="0xC1C64F4e9627221deefab278107f8Ddea3B25Ab2"                  // 2024/11/13
       //const NEW_IMPLEMENTATION ="0x48DF869C1c8c1eecBFFbc6d2E62857D30bc83dAa"                  // 2024/12/12
       //const NEW_IMPLEMENTATION ="0x86F6E189EFAe31747c6e3fE8A39D323958eC2680"                  // 2024/01/15
-      const NEW_IMPLEMENTATION ="0xe1714362D4ce1412760619681e6731B71863b596"                    // 2024/01/15
+      //const NEW_IMPLEMENTATION ="0xe1714362D4ce1412760619681e6731B71863b596"                  // 2024/01/15
+      const NEW_IMPLEMENTATION ="0x511De1993153F096eBa7651f8779a738474C91Df"                    // 2024/02/18, Add pixels feature
 
-      console.log("Updating GreenBTC2S: ", greenBTC2S, defaultGasPrice.toString());  
+      console.log("Updating GreenBTC2S: ", greenBTC2S, defaultGasPrice.toString());
 
       const [deployer] = await ethers.getSigners();
  
@@ -147,6 +148,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:matic_test:GreenBTC2SU:  Amoy testnet, Add node_id checking
 // Proxy:                 0x6729b2956e8Cf3d863517E4618C3d8722548D5C4
 // Implementaion:         0x00e74f864bD9Ce0E10231F942C56C72D06397c1e
+
+// 2024/01/18
+// yarn deploy:matic:GreenBTC2SU:   Polygon mainnet, Add pixels feature
+// Proxy:                 0x3221F5818A5CF99e09f5BE0E905d8F145935e3E0
+// Implementaion:         0x511De1993153F096eBa7651f8779a738474C91Df
 
 func.tags = ["GreenBTC2SU"];
 

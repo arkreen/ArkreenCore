@@ -257,7 +257,7 @@ contract ArkreenRECBank is
      * @param payToken Address of the payment token to withdraw
      */
     function withdraw(address artToken, address payToken) external {
-        require (msg.sender == artSaleInfo[artToken].controller, "ARBK: Not allowed");
+        require ((msg.sender == owner()) || (msg.sender == artSaleInfo[artToken].controller), "ARBK: Not allowed");
 
         address receiver = artSaleInfo[artToken].fundReceiver;
         if (receiver == address(0)) receiver = msg.sender;

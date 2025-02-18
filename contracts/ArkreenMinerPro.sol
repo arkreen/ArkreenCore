@@ -12,6 +12,7 @@ import "./interfaces/IERC20Permit.sol";
 import "./interfaces/IArkreenMinerListener.sol";
 import "./ArkreenMinerTypes.sol";
 import "./ArkreenMinerStorage.sol";
+import "./interfaces/IWETH.sol";
 
 contract ArkreenMinerPro is 
     OwnableUpgradeable,
@@ -242,6 +243,8 @@ contract ArkreenMinerPro is
         }
 
         if(token == tokenNative) {
+            uint256 amountWithdraw = IERC20(tokenNative).balanceOf(address(this));
+            if (amountWithdraw != 0) IWETH(tokenNative).withdraw(amountWithdraw);
             TransferHelper.safeTransferETH(receiver, address(this).balance);      
         } else {
             uint256 balance = IERC20(token).balanceOf(address(this));

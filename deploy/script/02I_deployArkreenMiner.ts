@@ -9,7 +9,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
     const [deployer] = await ethers.getSigners();
 
-    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(150_000_000_000)
+    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(32_000_000_000)
 
     if(hre.network.name === 'matic_test')  {
       const MINER_PROXY_ADDRESS = "0xF390caaF4FF0d297e0b4C3c1527D707C75541736"       // Miner Contract on Amoy testnet
@@ -113,10 +113,27 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
       console.log("New ArkreenMiner deployed to %s:", hre.network.name, NEW_IMPLEMENTATION);
 */
+/*
       const arkreenPromotion = "0x88D1D2Ec7544Bc3Dede2956487B1Bf28E911F13C"
       await arkreenMiner.setManager(3, arkreenPromotion, {gasPrice: defaultGasPrice})
+*/
+/*
+      const arkreenMinerPro = "0xe440fa4480ca4bFdbFF292bb0395246F4E2f36A9"
+      await arkreenMiner.setArkreenMinerPro(arkreenMinerPro, {gasPrice: defaultGasPrice})
+*/
+      // 2025/02/14
+      const arkreenMinerPro = "0xc6f4ee41384c4B006a5224123860dFa4a4419922"
+      await arkreenMiner.setArkreenMinerPro(arkreenMinerPro, {gasPrice: defaultGasPrice})
 
-      console.log("ArkreenMiner setManager %s:", hre.network.name, MINER_PROXY_ADDRESS, arkreenPromotion)
+      const USDC_ADDRESS        = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"          // USDC address
+      const USDT_ADDRESS        = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"          // USDT address
+      const WNATIVE_ADDRESS     = "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270"          // WMATIC address
+
+//    await arkreenMiner.withdraw(USDC_ADDRESS, {gasPrice: defaultGasPrice})
+//    await arkreenMiner.withdraw(USDT_ADDRESS, {gasPrice: defaultGasPrice})
+      await arkreenMiner.withdraw(WNATIVE_ADDRESS, {gasPrice: defaultGasPrice})
+
+      console.log("ArkreenMiner setManager %s:", hre.network.name, MINER_PROXY_ADDRESS)
 
     }
 };
@@ -159,8 +176,17 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // call setManager: (3, 0x2C870f4e1B716788bB7e75Ae990583A801564dF0)
 
 // 2024/12/21
-// yarn deploy:matic:AMinerI        : Polygon mainnet: setManager of arkreenPromotion as authority 
-// call setManager: (3, 0x88D1D2Ec7544Bc3Dede2956487B1Bf28E911F13C)
+// yarn deploy:matic:AMinerI        : Polygon mainnet: Deployed on Polygon main to support withdrawing native token
+// call setArkreenMinerPro: (0xe440fa4480ca4bFdbFF292bb0395246F4E2f36A9)
+
+// 2025/02/14
+// yarn deploy:matic:AMinerI        : Polygon mainnet: withdraw USDC/USDT/MATIC
+// call withdraw: (USDC/USDT/MATIC) (MATIC Failed??)
+
+// 2025/02/14
+// yarn deploy:matic:AMinerI        : Polygon mainnet: withdraw USDC/USDT/MATIC
+// set MinerPro to 0xc6f4ee41384c4B006a5224123860dFa4a4419922
+// call withdraw: MATIC
 
 func.tags = ["AMinerI"];
 

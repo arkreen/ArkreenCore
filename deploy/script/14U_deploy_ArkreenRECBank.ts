@@ -10,7 +10,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
                               ? BigNumber.from(32_000_000_000) 
                               : (hre.network.name === 'celo')
                               ? BigNumber.from(6_000_000_000) 
-                              : BigNumber.from(230_000_000_000)
+                              : BigNumber.from(32_000_000_000)
   
   if(hre.network.name === 'matic_test') {
     // const RECBANK_PROXY_ADDRESS   = "0x7ee6D2A14d6Db71339a010d44793B27895B36d50" // 2023/3/14 Arkreen REC bank proxy
@@ -40,7 +40,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     // const NEW_IMPLEMENTATION = "0xF845c843DaEa0cE08d2184CC1eDfe2b998B2d565"      // 2024/01/11: Upgrade to add new event
     // const NEW_IMPLEMENTATION = "0xED673Af2CD4eAEb2687DcB34e013335437463A31"      // 2024/04/03: Fix the withdraw bug
     // const NEW_IMPLEMENTATION = "0x5DbF34752CeBAeA2386337f5ea23c1dCaD48EE6A"      // 2024/04/03: support return value while buying ART
-    const NEW_IMPLEMENTATION = "0xBa9d6d00AB8e2937644225400F5C861eb5E18554"         // 2024/12/21: support removing ART deposit
+    // const NEW_IMPLEMENTATION = "0xBa9d6d00AB8e2937644225400F5C861eb5E18554"      // 2024/12/21: support removing ART deposit
+    const NEW_IMPLEMENTATION = "0x3985696D7B4B594b9e00fC7CE19d1FF6D8A652e2"         // 2025/02/14: support withdrawing by owner
 
     console.log("Updating Arkreen REC Bank: ", RECBANK_PROXY_ADDRESS);  
 
@@ -89,6 +90,9 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
 // 2024/11/21: Upgrade to support withdrawing ART from bank
 // yarn deploy:matic:ArtBankU  (0xBa9d6d00AB8e2937644225400F5C861eb5E18554)
+
+// 2025/02/14: Upgrade to support withdrawing by owner
+// yarn deploy:matic:ArtBankU  (0x3985696D7B4B594b9e00fC7CE19d1FF6D8A652e2)
 
 export default func;
 func.tags = ["ArtBankU"];

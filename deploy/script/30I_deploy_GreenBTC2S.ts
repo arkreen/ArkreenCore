@@ -199,7 +199,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
                               .add(BigNumber.from(domainInfoJson.ratio2).shl(96))
                               .add(BigNumber.from(domainInfoJson.ratio3).shl(80))
                               .add(BigNumber.from(domainInfoJson.ratio4).shl(64))
-                              .add(BigNumber.from(domainInfoJson.decimal + 128).shl(56))
+                              .add(BigNumber.from(domainInfoJson.decimal + 128).shl(56))    // Pixel
                               .add(nodeId.shl(32))
 
 /*    
@@ -375,7 +375,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const domainId = 35
 
     const domainInfoJson = {
-                            x: 256,  y: 320, w:  16, h: 16,
+                            x: 384,  y: 320, w:  16, h: 16,
                             boxTop: 36220,
                             chance1: 66,   chance2: 131, chance3: 655, chance4: 983,
                             ratio1: 1966,   ratio2: 13107, ratio3: 19661, ratio4: 28967,
@@ -415,9 +415,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     // 0x181001010002a22800410083028f03d707ae33334ccd71270700000000000000
     // 0x18 10 01 01 0002a228 0041 0083 028f 03d7 07ae 3333 4ccd 7127 0700000000000000
 
+/*    
     const registerDomainTx = await GreenBTC2S.registerDomain(domainId, domainInfo, {gasPrice: defaultGasPrice})
     await registerDomainTx.wait()
-
+*/
     console.log("GreenBTC2S registerDomain: ", hre.network.name, GreenBTC2SAddress, domainId, domainInfo );    
 
   }
@@ -461,6 +462,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
 // 2025/02/11: Call registerDomain (Amoy testnet): 0x6729b2956e8Cf3d863517E4618C3d8722548D5C4
 // yarn deploy:matic_test:GreenBTC2SI
+// call: registerDomain to register domain 35 
+
+// 2025/02/18: Call registerDomain (Ploygon Mainnet): 0x3221F5818A5CF99e09f5BE0E905d8F145935e3E0
+// yarn deploy:matic:GreenBTC2SI
 // call: registerDomain to register domain 35 
 
 func.tags = ["GreenBTC2SI"];
