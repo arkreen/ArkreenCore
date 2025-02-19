@@ -55,7 +55,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       //const NEW_IMPLEMENTATION ="0x48DF869C1c8c1eecBFFbc6d2E62857D30bc83dAa"                  // 2024/12/12
       //const NEW_IMPLEMENTATION ="0x86F6E189EFAe31747c6e3fE8A39D323958eC2680"                  // 2024/01/15
       //const NEW_IMPLEMENTATION ="0xe1714362D4ce1412760619681e6731B71863b596"                  // 2024/01/15
-      const NEW_IMPLEMENTATION ="0x511De1993153F096eBa7651f8779a738474C91Df"                    // 2024/02/18, Add pixels feature
+      //const NEW_IMPLEMENTATION ="0x511De1993153F096eBa7651f8779a738474C91Df"                  // 2024/02/18, Add pixels feature
+      const NEW_IMPLEMENTATION ="0x639f0B82Ad034aE8fA2F795d960176c1e4E2cD41"                    // 2024/02/19, add checking that Pixel domain can only call pixel ABI
 
       console.log("Updating GreenBTC2S: ", greenBTC2S, defaultGasPrice.toString());
 
@@ -153,6 +154,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:matic:GreenBTC2SU:   Polygon mainnet, Add pixels feature
 // Proxy:                 0x3221F5818A5CF99e09f5BE0E905d8F145935e3E0
 // Implementaion:         0x511De1993153F096eBa7651f8779a738474C91Df
+
+// 2024/01/19
+// yarn deploy:matic:GreenBTC2SU:   Polygon mainnet, add checking that Pixel domain can only call pixel ABI
+// Proxy:                 0x3221F5818A5CF99e09f5BE0E905d8F145935e3E0
+// Implementaion:         0x639f0B82Ad034aE8fA2F795d960176c1e4E2cD41
 
 func.tags = ["GreenBTC2SU"];
 

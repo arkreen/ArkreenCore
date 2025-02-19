@@ -214,6 +214,7 @@ contract GreenBTC2S is
 
         uint256 domainInfo = uint256(domains[domainID]);
         require ( domainInfo != 0 , "GBC2: Empty Domain");
+        require(uint8(domainInfo >> 56) & 0x80 == 0, "GBC2: Pixel Activated");   // Check pixel flag
 
         uint24  nodeId = uint24(domainInfo >> 32);
         uint256 boxTop = uint32(domainInfo >> 192);

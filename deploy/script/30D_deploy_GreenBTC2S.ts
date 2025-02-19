@@ -88,6 +88,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:matic:GreenBTC2SD   : Polygon mainnet: add pixel feature
 // Implementaion:        0x511De1993153F096eBa7651f8779a738474C91Df
 
+// 2025/02/18
+// yarn deploy:matic:GreenBTC2SD   : Polygon mainnet: add checking that Pixel domain can only call pixel ABI
+// Implementaion:        0x639f0B82Ad034aE8fA2F795d960176c1e4E2cD41
+
 func.tags = ["GreenBTC2SD"];
 
 export default func;
