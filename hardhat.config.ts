@@ -22,25 +22,6 @@ import { config as dotEnvConfig } from "dotenv"
 
 dotEnvConfig()
 
-/*
-let password: string
-const promptString = 'Please input the password: >> '
-password = readlineSync.question(promptString, {hideEchoBack: true}).trim().toLowerCase()
-let trxWallet: Wallet
-
-export async function getWallet() {
-  async function getWalletAsync() {
-    trxWallet = await Wallet.fromEncryptedJson(process.env.MATIC_PRIVATE_KEY_ENC!, password)
-  }
-  await getWalletAsync()
-}
-
-//getWallet()
-
-// const trxWallet = Wallet.fromEncryptedJson(process.env.MATIC_PRIVATE_KEY_ENC!, password)
-// console.log("AAAAAAAAAA", password, trxWallet!)
-*/
-
 function getAPIKey(network: string): string {
   let apiKey: string
   if(network === 'matic') {
@@ -51,6 +32,8 @@ function getAPIKey(network: string): string {
     apiKey = process.env.CELOSCAN_API_KEY as string
   } else if((network === 'dione')||(network ==='dione_test')) {
     apiKey = process.env.CELOSCAN_API_KEY as string
+  } else if((network === 'hashkey')||(network ==='hashkey_test')) {
+    apiKey = 'abc'                                                        // Can be anything
   } else {
     apiKey = process.env.ETHERSCAN_API_KEY as string
   }
@@ -75,12 +58,18 @@ function getURL(network:string): string {
   if(network === 'celo') {
     url = `https://celo-mainnet.infura.io/v3/` + projectID
   } else if(network === 'celo_test') {
-    url = `https://celo-alfajores.infura.io/v3/` + projectID
+    // url = `https://celo-alfajores.infura.io/v3/` + projectID
+    url = `https://alfajores-forno.celo-testnet.org`
+    //url = "https://celo-alfajores.drpc.org"
   } else if(network === 'dione') {
     // url = `https://odyssey.storyrpc.io`
     url = `https://api.odysseyscan.com//api/v1/`
   } else if(network === 'dione_test') {
     url = `https://api-testnet.odysseyscan.com//api/v1/`
+  } else if(network === 'hashkey') {
+    url = `https://mainnet.hsk.xyz`
+  } else if(network === 'hashkey_test') {
+    url = `https://hashkeychain-testnet.alt.technology`
   } else if(network === 'matic') {
     url = `https://polygon-mainnet.infura.io/v3/` + projectID
   } else if(network === 'matic_test') {
@@ -134,6 +123,18 @@ const config: HardhatUserConfig = {
       chainId: 153153,
       accounts: [process.env.MATIC_PRIVATE_KEY as string, process.env.MATIC_CONTROLLER_KEY as string],
     },
+
+    hashkey_test: {
+      url: getURL("hashkey_test"),
+      chainId: 133,
+      accounts: [process.env.MATIC_TESTNET_PRIVATE_KEY as string, process.env.MATIC_TESTNET_CONFIRM_KEY as string],
+    },
+    hashkey: {
+      url: getURL("hashkey"),
+      chainId: 177,
+      accounts: [process.env.MATIC_PRIVATE_KEY as string, process.env.MATIC_CONTROLLER_KEY as string],
+    },
+   
     matic_test: {
       url: getURL("matic_test"),
       accounts: [process.env.MATIC_TESTNET_PRIVATE_KEY as string, process.env.MATIC_TESTNET_CONFIRM_KEY as string],
@@ -282,6 +283,8 @@ const config: HardhatUserConfig = {
     apiKey: {
       celo:         getAPIKey("celo"),
       celo_test:    getAPIKey("celo_test"),
+      hashkey:      getAPIKey("hashkey"),
+      hashkey_test: getAPIKey("hashkey_test"),
       dione:        getAPIKey("dione"),
       dione_test:   getAPIKey("dione_test"),
       matic:        getAPIKey("matic"),
@@ -307,6 +310,22 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://api-testnet.odysseyscan.com//api/v1/",
           browserURL: "https://testnet.odysseyscan.com/"
+        }
+      },
+      {
+        network: "hashkey",
+        chainId: 177,
+        urls: {
+          apiURL: "https://mainnet.hsk.xyz",
+          browserURL: "https://hashkey.blockscout.com/"
+        }
+      },
+      {
+        network: "hashkey_test",
+        chainId: 133,
+        urls: {
+          apiURL: "https://hashkeychain-testnet.alt.technology",
+          browserURL: "https://hashkeychain-testnet-explorer.alt.technology/"
         }
       },
       {

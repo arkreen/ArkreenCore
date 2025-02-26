@@ -277,6 +277,10 @@
     "deploy:celo_test:ARKE": "hardhat --network celo_test deploy --tags ARKE --reset",
     "allowance:celo_test": "hardhat run --network celo_test ./deploy/allowance_manager.ts",
     "confirmAuto:celo_test": "hardhat run --network celo_test ./deploy/confirmIssuance_celo.ts",
+    "deploy:celo_test:WKHDT": "hardhat --network celo_test deploy --tags WKHDT",
+    "deploy:celo_test:USDT": "hardhat --network celo_test deploy --tags USDT",
+    "deploy:celo_test:USDTI": "hardhat --network celo_test deploy --tags USDTI",
+
     "etherscan:celo_test": "hardhat --network celo_test etherscan-verify --api-url https://api-alfajores.celoscan.io --api-key",
     "deploy:celo:gRegistry": "hardhat --network celo deploy --tags gRegistry",
     "deploy:celo:RECIssueExtD": "hardhat --network celo deploy --tags RECIssueExtD",
@@ -299,6 +303,9 @@
 
     "deploy:dione_test:WrapToken": "hardhat --network dione_test deploy --tags WrapToken",
     "deploy:dione:WrapToken": "hardhat --network dione deploy --tags WrapToken",
+
+    "deploy:hashkey_test:USDT": "hardhat --network hashkey_test deploy --tags USDT",
+    "deploy:hashkey_test:USDTI": "hardhat --network hashkey_test deploy --tags USDTI",
     
     "test": "hardhat test",
     "gas": "set REPORT_GAS=true && hardhat test",

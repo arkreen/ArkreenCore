@@ -36,7 +36,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     let AKRE_PRICE
     let CELO_PRICE
 
-    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(3_000_000_000) : BigNumber.from(350_000_000_000)
+    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(3_000_000_000) : BigNumber.from(120_000_000_000)
 
     if(hre.network.name === 'matic_test') {    
       // 2023/03/14, simulation 
@@ -314,23 +314,29 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   //                                    AKRE_ADDRESS as string, AKRE_PRICE as BigNumber)
   //    await changeSalePriceAKRE.wait()
 
-  /*
-      // Need to use HART controler
-      // 2023/04/10: Approve RECBANK_ADDRESS
-      const ArkreenRECTokenFactory = ArkreenRECToken__factory.connect(HART_AREC as string, controller);
-      const approveTrx = await ArkreenRECTokenFactory.approve(RECBANK_ADDRESS as string, constants.MaxUint256)
-      await approveTrx.wait()
   
-      // 2023/04/10: Deposit HART
-      const depositARTTrx = await ArkreenRECBankFactory.connect(controller).depositART(HART_AREC as string, 
-                                        BigNumber.from(5000).mul(BigNumber.from(10).pow(9)))      // 5000 HART
-      await depositARTTrx.wait()   
-  */
+      // Need to use HART controler
+      // 2023/04/10: Approve RECBANK_ADDRESS: HART_AREC
+      // 2025/02/21: Approve RECBANK_ADDRESS: ART_AREC
+/*
+      const ArkreenRECTokenFactory = ArkreenRECToken__factory.connect(ART_AREC as string, controller);
+      const approveTrx = await ArkreenRECTokenFactory.connect(controller).approve(RECBANK_ADDRESS as string, constants.MaxUint256)
+      await approveTrx.wait()
+*/ 
 
-      const withdrawUSDC = await ArkreenRECBankFactory.withdraw(ART_AREC, USDC_ADDRESS, {gasPrice: defaultGasPrice})
+/*
+      // 2023/04/10: Deposit HART
+      // 2025/02/21: Deposit ART: 1500 ART 
+      const depositARTTrx = await ArkreenRECBankFactory.connect(controller).depositART(ART_AREC as string, 
+                                        BigNumber.from(1500).mul(BigNumber.from(10).pow(9)), {gasPrice: defaultGasPrice})      // 1500 ART
+      await depositARTTrx.wait()   
+*/  
+
+
+      const withdrawUSDC = await ArkreenRECBankFactory.withdraw(ART_AREC, USDC_ADDRESS, {gasPrice: defaultGasPrice, nonce: 874})
       await withdrawUSDC.wait()   
 
-      const withdrawUSDT = await ArkreenRECBankFactory.withdraw(ART_AREC, USDT_ADDRESS, {gasPrice: defaultGasPrice})
+      const withdrawUSDT = await ArkreenRECBankFactory.withdraw(ART_AREC, USDT_ADDRESS, {gasPrice: defaultGasPrice, nonce: 875})
       await withdrawUSDT.wait()   
 
       console.log("ArkreenRECBank Price is updated: ", hre.network.name, new Date().toLocaleString(),
@@ -338,6 +344,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
                                 RECBANK_ADDRESS, HART_AREC, ART_CONTROLLER, BUILDER_ADDRESS,
                                 [USDC_ADDRESS, USDT_ADDRESS, WNATIVE_ADDRESS, AKRE_ADDRESS],
                                 [USDC_PRICE, USDT_PRICE, MATIC_PRICE, AKRE_PRICE] );  
+                                
     }          
     
     else if(hre.network.name === 'celo_test')  {        // Celo Testnet 2023/08/25
@@ -561,6 +568,14 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // Action 3 (ART): approve(RECBANK_ADDRESS)
 
 // 2025/02/14
+// yarn deploy:matic:ArtBankI
+// Withdraw ART -> USDC/USDT
+
+// 2025/02/21:
+// yarn deploy:matic:ArtBankI
+// 1. depositART: 1500 ART
+
+// 2025/02/21
 // yarn deploy:matic:ArtBankI
 // Withdraw ART -> USDC/USDT
 

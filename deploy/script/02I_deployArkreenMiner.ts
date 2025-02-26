@@ -9,7 +9,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
     const [deployer] = await ethers.getSigners();
 
-    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(32_000_000_000)
+    const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(80_000_000_000)
 
     if(hre.network.name === 'matic_test')  {
       const MINER_PROXY_ADDRESS = "0xF390caaF4FF0d297e0b4C3c1527D707C75541736"       // Miner Contract on Amoy testnet
@@ -122,18 +122,24 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       await arkreenMiner.setArkreenMinerPro(arkreenMinerPro, {gasPrice: defaultGasPrice})
 */
       // 2025/02/14
-      const arkreenMinerPro = "0xc6f4ee41384c4B006a5224123860dFa4a4419922"
-      await arkreenMiner.setArkreenMinerPro(arkreenMinerPro, {gasPrice: defaultGasPrice})
+      //const arkreenMinerPro = "0xc6f4ee41384c4B006a5224123860dFa4a4419922"
+      //await arkreenMiner.setArkreenMinerPro(arkreenMinerPro, {gasPrice: defaultGasPrice})
 
+      // 2025/02/21
       const USDC_ADDRESS        = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"          // USDC address
       const USDT_ADDRESS        = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"          // USDT address
       const WNATIVE_ADDRESS     = "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270"          // WMATIC address
 
-//    await arkreenMiner.withdraw(USDC_ADDRESS, {gasPrice: defaultGasPrice})
-//    await arkreenMiner.withdraw(USDT_ADDRESS, {gasPrice: defaultGasPrice})
-      await arkreenMiner.withdraw(WNATIVE_ADDRESS, {gasPrice: defaultGasPrice})
+      let withdrawTx1 = await arkreenMiner.withdraw(USDC_ADDRESS, {gasPrice: defaultGasPrice, nonce: 871})
+      await withdrawTx1.wait()
 
-      console.log("ArkreenMiner setManager %s:", hre.network.name, MINER_PROXY_ADDRESS)
+      let withdrawTx2 = await arkreenMiner.withdraw(USDT_ADDRESS, {gasPrice: defaultGasPrice, nonce: 872})
+      await withdrawTx2.wait()
+      
+      let withdrawTx3 = await arkreenMiner.withdraw(WNATIVE_ADDRESS, {gasPrice: defaultGasPrice, nonce: 873})
+      await withdrawTx3.wait()
+
+      console.log("ArkreenMiner withdrawed %s:", hre.network.name, MINER_PROXY_ADDRESS, USDC_ADDRESS, USDT_ADDRESS, WNATIVE_ADDRESS)
 
     }
 };
@@ -183,7 +189,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:matic:AMinerI        : Polygon mainnet: withdraw USDC/USDT/MATIC
 // call withdraw: (USDC/USDT/MATIC) (MATIC Failed??)
 
-// 2025/02/14
+// 2025/02/21
 // yarn deploy:matic:AMinerI        : Polygon mainnet: withdraw USDC/USDT/MATIC
 // set MinerPro to 0xc6f4ee41384c4B006a5224123860dFa4a4419922
 // call withdraw: MATIC
