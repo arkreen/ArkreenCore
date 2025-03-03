@@ -3,7 +3,6 @@ import { providers, utils, BigNumber, Signer, Wallet } from 'ethers'
 
 import hre from 'hardhat'
 
-
 export const MINIMUM_LIQUIDITY = BigNumber.from(10).pow(3)
 
 const PERMIT_TYPEHASH = utils.keccak256(
@@ -343,17 +342,19 @@ export function getGreenBTC2SBuyNodeDigest(
   owner: string,
   nodeId: BigNumber,
   percentage: BigNumber,
-  amountEnergy: BigNumber
+  amountEnergy: BigNumber,
+  chainId: number
 ): string {
+
   const version = "2"
-  const DOMAIN_SEPARATOR = getDomainSeparator(contractName, contractAddress, version)
+  const DOMAIN_SEPARATOR = getDomainSeparator(contractName, contractAddress, version, chainId)
 
   // keccak256("buyNode(address owner,uint256 nodeId,uint256 percentage,uint256 amountEnergy)");
   // 0x47A3904864FF6B34A8BCB4F45B53B6B67C65606D703B12BDE7C0F91117646454;  
   const BUY_NODE_TYPEHASH = utils.keccak256(
     utils.toUtf8Bytes('buyNode(address owner,uint256 nodeId,uint256 percentage,uint256 amountEnergy)')
   )
- 
+
   //47a3904864ff6b34a8bcb4f45b53b6b67c65606d703b12bde7c0f91117646454
   //00000000000000000000000015d34aaf54267db7d7c367839aaf71a00a2c6a65
   //0000000000000000000000000000000000000000000000000000000000012abc
@@ -377,7 +378,6 @@ export function getGreenBTC2SBuyNodeDigest(
     )
   )
 }
-
 
 export function getGreenBTC2SLuckyDigest(
   contractName: string,

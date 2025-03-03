@@ -2,7 +2,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { CONTRACTS } from "../constants";
 import { BigNumber } from "ethers";
-
+import { ethers } from "hardhat";
 import { GreenBTC2S__factory } from "../../typechain";
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
@@ -21,9 +21,12 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       kWh = "0xB932CDD3c6Ad3f39d50278A76fb952A6077d1950"
     } else if(hre.network.name === 'matic')  {
       kWh = "0x5740A27990d4AaA4FB83044a6C699D435B9BA6F1"
-    } 
+    } else if(hre.network.name === 'bsc_test')  {
+      kWh = "0xb50663a9848A8CDa219756488406cCA19F8b2F28"
+    }  
 
-    console.log("Deploying: ", "GreenBTC2S", deployer);  
+    const gasPrice = await ethers.provider.getGasPrice()  
+    console.log("Deploying: ", "GreenBTC2S", deployer, gasPrice.toString());  
     
     const GreenBTC2S = await deploy("GreenBTC2S", {
         from: deployer,
@@ -38,7 +41,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
         },
         log: true,
         skipIfAlreadyDeployed: false,
-        gasPrice: defaultGasPrice
+        gasPrice: gasPrice.mul(130).div(100)
     });
 
     /*
@@ -74,6 +77,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // Proxy:                 0x3221F5818A5CF99e09f5BE0E905d8F145935e3E0
 // Implementaion:         0x08F9993e691Bf56918A5687a420Db7Bc6D982A44
 
+// 2025/03/03
+// yarn deploy:bsc_test:GreenBTC2S    : BSC testnet
+// Proxy:                 0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45
+// Implementaion:         0x6B1Fc7b2eF80B9941A2dD90502b77733557255AB
 
 func.tags = ["GreenBTC2S"];
 

@@ -3,6 +3,7 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { CONTRACTS } from "../constants";
 import { BigNumber } from "ethers";
 import { expandTo18Decimals } from "../../test/utils/utilities";
+import { ethers } from "hardhat";
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
@@ -10,7 +11,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const { deploy } = deployments;
     const { deployer } = await getNamedAccounts();
 
-    const defaultGasPrice = (hre.network.name === 'celo_test') ? BigNumber.from(50_000_000_000) : BigNumber.from(50_000_000_000)
+//  const defaultGasPrice = (hre.network.name === 'celo_test') ? BigNumber.from(50_000_000_000) : BigNumber.from(50_000_000_000)
+    const gasPrice = await ethers.provider.getGasPrice()  
 
     console.log("Deploying: ", "kWh Token Test", deployer);  
 
@@ -29,7 +31,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       },
       log: true,
       skipIfAlreadyDeployed: false,
-      gasPrice: defaultGasPrice,
+      gasPrice: gasPrice.mul(130).div(100),
     });
   
     console.log("ArkreenRECToken Test deployed to %s: ", hre.network.name, artTest.address);
@@ -49,6 +51,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:celo_test:WKHDT         // kWh Test Token on Celo
 // Proxy:                 0x6D2B7d619dc27FF926D4EAC36899a41C1D84Fce2 (UUPS) (No convert funaction)
 // Implementaion:         
+
+// 2025/02/28
+// yarn deploy:bsc_test:WKHDT         // kWh Test Token on Celo
+// Proxy:                 0xb50663a9848A8CDa219756488406cCA19F8b2F28        (UUPS) (No convert funaction)
+// Implementaion:         0xeB53d6642D210348D8BFcDA1a408990794A4A7B9
 
 func.tags = ["WKHDT"];
 

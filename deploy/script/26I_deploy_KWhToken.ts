@@ -134,7 +134,26 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       
       const changeSwapPrice3 = await KWhToken.changeSwapPrice( USDT_ADDRESS, USDT_PRICE, {gasPrice: defaultGasPrice})  
       await changeSwapPrice3.wait()    
-    } 
+    } else if(hre.network.name === 'bsc_test')  {
+      // 2025/03/02: BSC testnet                        
+      kWhTokenAddress   = "0xb50663a9848a8cda219756488406cca19f8b2f28"                
+
+      tokenART          = "0x615835Cc22064a17df5A3E8AE22F58e67bCcB778"                // Amoy testnet
+      USDC_ADDRESS      = "0x64544969ed7ebf5f083679233325356ebe738930"                // USDC address
+      USDT_ADDRESS      = "0x93eFC409Ff44788E8b1DAF395F46965046cAe84B"                // USDT address
+
+      USDC_PRICE      = BigNumber.from(2).mul(BigNumber.from(10).pow(1))            // 0.02 USDC, 10**6
+      USDT_PRICE      = BigNumber.from(10).mul(BigNumber.from(10).pow(3))           // 10 USDT, 10**6
+      
+      const KWhToken = KWhToken__factory.connect(kWhTokenAddress, deployer);
+
+      // 2025/03/02
+      //await KWhToken.changeSwapPrice( tokenART, ART_PRICE, {gasPrice: defaultGasPrice})
+      await KWhToken.changeSwapPrice( USDC_ADDRESS, USDC_PRICE, {gasPrice: defaultGasPrice})
+      await KWhToken.changeSwapPrice( USDT_ADDRESS, USDT_PRICE, {gasPrice: defaultGasPrice})
+      
+    }
+
 
 };
 
@@ -161,6 +180,9 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
 // 2024/07/14: Call setBadgeInfo, approveBank, changeSwapPrice (tokenART, USDC_ADDRESS, USDT_ADDRESS)
 // yarn deploy:matic:WKHI     : Ploygon mainnet
+
+// 2025/03/02: Call changeSwapPrice (USDC_ADDRESS, USDT_ADDRESS)
+// yarn deploy:bsc_test:WKHI     : BSC testnet
 
 func.tags = ["WKHI"];
 

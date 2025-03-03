@@ -24,15 +24,17 @@ dotEnvConfig()
 
 function getAPIKey(network: string): string {
   let apiKey: string
-  if(network === 'matic') {
+  if(network == 'matic') {
     apiKey = process.env.POLYGONSCAN_API_KEY as string
-  } else if(network ==='matic_test') {
+  } else if(network =='matic_test') {
     apiKey = process.env.POLYGONSCAN_API_KEY as string
-  } else if((network === 'celo')||(network ==='celo_test')) {
+  } else if((network == 'bsc' || network == 'bsc_test')) {
+      apiKey = process.env.BSCSCAN_API_KEY as string
+  } else if((network == 'celo')||(network ==='celo_test')) {
     apiKey = process.env.CELOSCAN_API_KEY as string
-  } else if((network === 'dione')||(network ==='dione_test')) {
+  } else if((network == 'dione')||(network ==='dione_test')) {
     apiKey = process.env.CELOSCAN_API_KEY as string
-  } else if((network === 'hashkey')||(network ==='hashkey_test')) {
+  } else if((network == 'hashkey')||(network =='hashkey_test')) {
     apiKey = 'abc'                                                        // Can be anything
   } else {
     apiKey = process.env.ETHERSCAN_API_KEY as string
@@ -74,6 +76,10 @@ function getURL(network:string): string {
     url = `https://polygon-mainnet.infura.io/v3/` + projectID
   } else if(network === 'matic_test') {
     url = `https://rpc-amoy.polygon.technology/`
+  } else if(network === 'bsc') {
+    url = `https://bsc-mainnet.infura.io/v3` + projectID
+  } else if(network === 'bsc_test') {
+    url = `https://bsc-testnet.infura.io/v3/` + projectID
   } else if(network === 'goerli') {
     url = `https://goerli.infura.io/v3/`+ projectID
   } else if(network === 'rinkeby') {
@@ -143,14 +149,13 @@ const config: HardhatUserConfig = {
       url: getURL("matic"),
       chainId: 137,
       accounts: [process.env.MATIC_PRIVATE_KEY as string, process.env.MATIC_CONTROLLER_KEY as string],
-//      accounts: [trxWallet!.privateKey as string, process.env.MATIC_CONTROLLER_KEY as string],
     },
-    BSC_TEST: {
-      url: "https://data-seed-prebsc-2-s1.binance.org:8545/",
-      accounts: [process.env.BSC_TESTNET_PRIVATE_KEY as string],
+    bsc_test: {
+      url: getURL("bsc_test"),
+      accounts: [process.env.BSC_TESTNET_PRIVATE_KEY as string, process.env.BSC_TESTNET_CONFIRM_KEY as string],
     },
-    BSC: {
-      url: process.env.BSC_MAINNET_RPC,
+    bsc: {
+      url: getURL("bsc"),
       accounts: [process.env.BSC_MAINNET_PRIVATE_KEY as string],
     },    
   },
@@ -289,6 +294,8 @@ const config: HardhatUserConfig = {
       dione_test:   getAPIKey("dione_test"),
       matic:        getAPIKey("matic"),
       matic_test:   getAPIKey("matic_test"),
+      bsc:          getAPIKey("bsc"),
+      bsc_test:     getAPIKey("bsc_test"),
       mainnet:      getAPIKey("mainnet"),
       ropsten:      getAPIKey("ropsten"),
       rinkeby:      getAPIKey("rinkeby"),
@@ -324,8 +331,8 @@ const config: HardhatUserConfig = {
         network: "hashkey_test",
         chainId: 133,
         urls: {
-          apiURL: "https://hashkeychain-testnet.alt.technology",
-          browserURL: "https://hashkeychain-testnet-explorer.alt.technology/"
+          apiURL: "https://hashkeychain-testnet-explorer.alt.technology:443/api",
+          browserURL: "https://hashkeychain-testnet-explorer.alt.technology:443/"
         }
       },
       {
@@ -348,7 +355,7 @@ const config: HardhatUserConfig = {
         network: "matic",
         chainId: 137,
         urls: {
-          apiURL: "https://polygon-rpc.com",
+          apiURL: "https://api.polygonscan.com",
           browserURL: "https://polygonscan.com/"
         }
       },
@@ -358,6 +365,22 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://api-amoy.polygonscan.com",
           browserURL: "https://amoy.polygonscan.com/"
+        }
+      },
+      {
+        network: "bsc",
+        chainId: 56,
+        urls: {
+          apiURL: "https://api.bscscan.com/api",
+          browserURL: "https://bscscan.com/"
+        }
+      },
+      {
+        network: "bsc_test",
+        chainId: 97,
+        urls: {
+          apiURL: "https://api-testnet.bscscan.com/api",
+          browserURL: "https://testnet.bscscan.com/"
         }
       },
     ]

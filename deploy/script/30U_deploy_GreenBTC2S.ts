@@ -72,7 +72,26 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       await updateTx.wait()
   
       console.log("greenBTC2S is upgraded: ", hre.network.name, GreenBTC2SFactory.address);
+    } else if(hre.network.name === 'bsc_test')  {
+      // 2025/03/03: GreenBTC2S on BSC testnet
+      const greenBTC2S = "0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45"
+      const NEW_IMPLEMENTATION ="0x6B1Fc7b2eF80B9941A2dD90502b77733557255AB"
+
+      const [deployer] = await ethers.getSigners();
+      const GreenBTC2SFactory = GreenBTC2S__factory.connect(greenBTC2S, deployer);
+
+      const gasPrice = await ethers.provider.getGasPrice()  
+
+      const callData = GreenBTC2SFactory.interface.encodeFunctionData("postUpdate")
+      const updateTx = await GreenBTC2SFactory.upgradeToAndCall(NEW_IMPLEMENTATION, callData, { gasPrice: gasPrice.mul(130).div(100) } )
+      await updateTx.wait()
+
+      //const updateTx = await GreenBTC2SFactory.upgradeTo(NEW_IMPLEMENTATION, {gasPrice: defaultGasPrice})
+      //await updateTx.wait()
+
+      console.log("greenBTC2S is upgraded: ", hre.network.name, GreenBTC2SFactory.address);
     } 
+
 };
 
 // 2024/10/13
@@ -159,6 +178,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:matic:GreenBTC2SU:   Polygon mainnet, add checking that Pixel domain can only call pixel ABI
 // Proxy:                 0x3221F5818A5CF99e09f5BE0E905d8F145935e3E0
 // Implementaion:         0x639f0B82Ad034aE8fA2F795d960176c1e4E2cD41
+
+// 2025/03/03
+// yarn deploy:bsc_test:GreenBTC2SU:   bsc testnet, call postUpdate
+// Proxy:                 0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45
+// Implementaion:         0x6B1Fc7b2eF80B9941A2dD90502b77733557255AB
 
 func.tags = ["GreenBTC2SU"];
 
