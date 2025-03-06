@@ -152,8 +152,25 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       await KWhToken.changeSwapPrice( USDC_ADDRESS, USDC_PRICE, {gasPrice: defaultGasPrice})
       await KWhToken.changeSwapPrice( USDT_ADDRESS, USDT_PRICE, {gasPrice: defaultGasPrice})
       
-    }
+    } else if(hre.network.name === 'celo_test')  {
+      // 2025/03/06: Celo testnet                        
+      kWhTokenAddress   = "0x0a9E5889f0bd049583093a31E375Fd15427F8773"                
 
+      tokenART          = "0x57Fe6324538CeDd43D78C975118Ecf8c137fC8B2"                // Celo testnet
+      USDC_ADDRESS      = "0x2f25deb3848c207fc8e0c34035b3ba7fc157602b"                // USDC address
+      USDT_ADDRESS      = "0xf66fc9b248D2C97Fb28954c476E6E3964aB0275D"                // USDT address
+
+      ART_PRICE       = BigNumber.from(1).mul(BigNumber.from(10).pow(6))            // 1kWh = 0.001ART = 0.001*10**9 = 10**6
+      USDC_PRICE      = BigNumber.from(2).mul(BigNumber.from(10).pow(1))            // 0.02 USDC, 10**6
+      USDT_PRICE      = BigNumber.from(10).mul(BigNumber.from(10).pow(3))           // 10 USDT, 10**6
+      
+      const KWhToken = KWhToken__factory.connect(kWhTokenAddress, deployer);
+
+      // 2025/03/06
+      await KWhToken.changeSwapPrice( tokenART, ART_PRICE, {gasPrice: defaultGasPrice})
+      await KWhToken.changeSwapPrice( USDC_ADDRESS, USDC_PRICE, {gasPrice: defaultGasPrice})
+      await KWhToken.changeSwapPrice( USDT_ADDRESS, USDT_PRICE, {gasPrice: defaultGasPrice})
+    }
 
 };
 
@@ -183,6 +200,9 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
 // 2025/03/02: Call changeSwapPrice (USDC_ADDRESS, USDT_ADDRESS)
 // yarn deploy:bsc_test:WKHI     : BSC testnet
+
+// 2025/03/06: Call changeSwapPrice (tokenART, USDC_ADDRESS, USDT_ADDRESS)
+// yarn deploy:celo_test:WKHI     : BSC testnet
 
 func.tags = ["WKHI"];
 

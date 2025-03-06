@@ -23,6 +23,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       kWh = "0x5740A27990d4AaA4FB83044a6C699D435B9BA6F1"
     } else if(hre.network.name === 'bsc_test')  {
       kWh = "0xb50663a9848A8CDa219756488406cCA19F8b2F28"
+    } else if(hre.network.name === 'celo_test')  {
+      kWh = "0x0a9E5889f0bd049583093a31E375Fd15427F8773"
     }  
 
     const gasPrice = await ethers.provider.getGasPrice()  
@@ -61,7 +63,6 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     console.log("GreenBTC2S deployed to %s: ", hre.network.name, GreenBTC2S.address);
 };
 
-
 // 2024/07/05
 // yarn deploy:matic_test:GreenBTC2S    : Amoy testnet (Dev Anv): Remove the open/claim logic
 // Proxy:                 0xf276AD41bA60e723188496318Ba0E41733C9fF3F
@@ -81,6 +82,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:bsc_test:GreenBTC2S    : BSC testnet
 // Proxy:                 0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45
 // Implementaion:         0x6B1Fc7b2eF80B9941A2dD90502b77733557255AB
+
+// 2025/03/06
+// yarn deploy:celo_test:GreenBTC2S    : Celo testnet
+// Proxy:                 0x64acd7936e7e0BCFa9629dD2Ed2bf45e57CBbB3D
+// Implementaion:         0xCb9eA8eB5d0EE637a99948f7636BA68f6F183d52
 
 func.tags = ["GreenBTC2S"];
 

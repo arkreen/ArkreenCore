@@ -280,6 +280,9 @@
     "deploy:celo_test:WKHDT": "hardhat --network celo_test deploy --tags WKHDT",
     "deploy:celo_test:USDT": "hardhat --network celo_test deploy --tags USDT",
     "deploy:celo_test:USDTI": "hardhat --network celo_test deploy --tags USDTI",
+    "deploy:celo_test:WKHI": "hardhat --network celo_test deploy --tags WKHI",
+    "deploy:celo_test:GreenBTC2S": "hardhat --network celo_test deploy --tags GreenBTC2S",
+    "deploy:celo_test:GreenBTC2SI": "hardhat --network celo_test deploy --tags GreenBTC2SI",
 
     "etherscan:celo_test": "hardhat --network celo_test etherscan-verify --api-url https://api-alfajores.celoscan.io --api-key",
     "deploy:celo:gRegistry": "hardhat --network celo deploy --tags gRegistry",

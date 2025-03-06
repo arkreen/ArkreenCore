@@ -470,20 +470,9 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const GreenBTC2SAddress  = "0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45"           // 2025/03/03: BSC Test
 
     const GreenBTC2S = GreenBTC2S__factory.connect(GreenBTC2SAddress, deployer);
-/*
-    131:  0x13CAA	2482860	BNB
-    132:  0x13CAB	2470060	BNB
-    133:  0x13CBA	2450430	BNB
-    134:  0x13CBB	2468310	BNB
-    135:  0x13DAA	2446880	Hashkey
-    136:  0x13DAB	2446880	Hashkey
-    137:  0x13DBA	2439640	Hashkey
-    138:  0x13DBB	2423070	Hashkey
-*/
 
-/*
     // 2025/03/03: Polygon mainnet
-
+/*
     const domainId = 131
     const domainInfoJson = {
                             x: 0,  y: 448, w:  16, h: 16,
@@ -493,7 +482,17 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
                             decimal: 7
                           }
     const nodeId = BigNumber.from('0x13CAA'.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))
-    
+*/    
+    const domainId = 132
+    const domainInfoJson = {
+                            x: 16,  y: 448, w:  16, h: 16,
+                            boxTop: 247006,
+                            chance1: 66,   chance2: 131, chance3: 655, chance4: 983,
+                            ratio1: 1966,   ratio2: 13107, ratio3: 19661, ratio4: 28967,
+                            decimal: 7
+                          }
+    const nodeId = BigNumber.from('0x13CAB'.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))
+
     const checkValue =  domainInfoJson.chance1 + domainInfoJson.chance2 + domainInfoJson.chance3 + domainInfoJson.chance4 +
                         domainInfoJson.ratio1 + domainInfoJson.ratio2 + domainInfoJson.ratio3 + domainInfoJson.ratio4
     if (checkValue != 65536) {
@@ -514,7 +513,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
                               .add(BigNumber.from(domainInfoJson.ratio2).shl(96))
                               .add(BigNumber.from(domainInfoJson.ratio3).shl(80))
                               .add(BigNumber.from(domainInfoJson.ratio4).shl(64))
-                              .add(BigNumber.from(domainInfoJson.decimal + 128).shl(56))    // Pixel flag
+//                            .add(BigNumber.from(domainInfoJson.decimal + 128).shl(56))    // Pixel flag
+                              .add(BigNumber.from(domainInfoJson.decimal).shl(56))          // Pixel flag !!!!!!!!!
                               .add(nodeId.shl(32))
 
     const domainInfo = utils.defaultAbiCoder.encode(['uint256'], [domainInfoBigInt])
@@ -526,14 +526,28 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     await registerDomainTx.wait()
 
     console.log("GreenBTC2S registerDomain: ", hre.network.name, GreenBTC2SAddress, domainId, domainInfo );  
-*/    
-    
+
+    /*
+    131:  0x13CAA	2482860	BNB
+    132:  0x13CAB	2470060	BNB
+    133:  0x13CBA	2450430	BNB
+    134:  0x13CBB	2468310	BNB
+    135:  0x13DAA	2446880	Hashkey
+    136:  0x13DAB	2446880	Hashkey
+    137:  0x13DBA	2439640	Hashkey
+    138:  0x13DBB	2423070	Hashkey
+    */
+/*    
     {
-        const nodeId = BigNumber.from('0x13CAA'.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))
+        // const nodeId = BigNumber.from('0x13CAA'.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))
+        // const percentage = BigNumber.from(20)
+        // const amountEnergy = expandTo6Decimals(248286 * 2)
+
+        const nodeId = BigNumber.from('0x13CAB'.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))
         const percentage = BigNumber.from(20)
-        const amountEnergy = expandTo6Decimals(248286 * 2)
+        const amountEnergy = expandTo6Decimals(247006 * 2)
+
         const chainId = 97
-        
         console.log("deployer, signer", deployer.address, signer.address, nodeId.toHexString())
 
         const privateKeyManager = process.env.BSC_TESTNET_PRIVATE_KEY as string
@@ -553,10 +567,119 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
         let buyNodeTx = await GreenBTC2S.connect(signer).buyNode(nodeId, percentage, amountEnergy, {v,r,s}, {gasPrice: gasPrice.mul(130).div(100)})
         const receipt = await buyNodeTx.wait()
-        console.log('buyNode gas usage:', receipt.gasUsed )       
+        console.log('buyNode gas usage:', receipt.gasUsed )
 
     }
+ */
+    
   }
+
+  if(hre.network.name === 'celo_test') {
+    // 2025/03/06
+    const GreenBTC2SAddress  = "0x64acd7936e7e0BCFa9629dD2Ed2bf45e57CBbB3D"           // 2025/03/06: Celo Test
+    const GreenBTC2S = GreenBTC2S__factory.connect(GreenBTC2SAddress, deployer);
+
+    // 2025/03/03: Polygon mainnet
+/*
+    const domainId = 103
+    const domainInfoJson = {
+                            x: 0,  y: 384, w:  16, h: 16,
+                            boxTop: 70234,
+                            chance1: 66,   chance2: 131, chance3: 655, chance4: 983,
+                            ratio1: 1966,   ratio2: 13107, ratio3: 19661, ratio4: 28967,
+                            decimal: 7
+                          }
+    const nodeId = BigNumber.from('0x13BAA'.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))
+*/   
+
+    const domainId = 104
+    const domainInfoJson = {
+                            x: 16,  y: 384, w:  16, h: 16,
+                            boxTop: 70383,
+                            chance1: 66,   chance2: 131, chance3: 655, chance4: 983,
+                            ratio1: 1966,   ratio2: 13107, ratio3: 19661, ratio4: 28967,
+                            decimal: 7
+                          }
+    const nodeId = BigNumber.from('0x13BAB'.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))
+
+    const checkValue =  domainInfoJson.chance1 + domainInfoJson.chance2 + domainInfoJson.chance3 + domainInfoJson.chance4 +
+                        domainInfoJson.ratio1 + domainInfoJson.ratio2 + domainInfoJson.ratio3 + domainInfoJson.ratio4
+    if (checkValue != 65536) {
+      console.log("Wrong ratio!!!!")
+      return
+    }
+
+    const domainInfoBigInt= BigNumber.from(domainInfoJson.x / 16).shl(248)
+                              .add(BigNumber.from(domainInfoJson.y / 16).shl(240))
+                              .add(BigNumber.from(domainInfoJson.w / 16).shl(232))
+                              .add(BigNumber.from(domainInfoJson.h / 16).shl(224))
+                              .add(BigNumber.from(domainInfoJson.boxTop).shl(192))
+                              .add(BigNumber.from(domainInfoJson.chance1 - 1).shl(176))     // !!!!!!!!!!
+                              .add(BigNumber.from(domainInfoJson.chance2).shl(160))
+                              .add(BigNumber.from(domainInfoJson.chance3).shl(144))
+                              .add(BigNumber.from(domainInfoJson.chance4).shl(128))
+                              .add(BigNumber.from(domainInfoJson.ratio1).shl(112))
+                              .add(BigNumber.from(domainInfoJson.ratio2).shl(96))
+                              .add(BigNumber.from(domainInfoJson.ratio3).shl(80))
+                              .add(BigNumber.from(domainInfoJson.ratio4).shl(64))
+//                            .add(BigNumber.from(domainInfoJson.decimal + 128).shl(56))    // Pixel flag
+                              .add(BigNumber.from(domainInfoJson.decimal).shl(56))          // Pixel flag !!!!!!!!!
+                              .add(nodeId.shl(32))
+
+    const domainInfo = utils.defaultAbiCoder.encode(['uint256'], [domainInfoBigInt])
+    console.log("domainInfoBigInt: ", domainInfoBigInt.toHexString(), domainInfo)
+    // 0x001801010001125a00410083028f03d707ae33334ccd712707013baa00000000
+
+    const gasPrice = await ethers.provider.getGasPrice()  
+    const registerDomainTx = await GreenBTC2S.registerDomain(domainId, domainInfo, {gasPrice: gasPrice.mul(130).div(100)})
+    await registerDomainTx.wait()
+
+    console.log("GreenBTC2S registerDomain: ", hre.network.name, GreenBTC2SAddress, domainId, domainInfo );  
+
+    /*
+    131:  0x13BAA	702340	Celo
+    132:  0x13BAB	703830	Celo
+    133:  0x13BBA	712130	Celo
+    134:  0x13BBB	711080	Celo
+    */
+
+/*    
+    {
+
+        // const nodeId = BigNumber.from('0x13BAA'.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))
+        // const percentage = BigNumber.from(20)
+        // const amountEnergy = expandTo6Decimals(70234 * 2)
+        
+        const nodeId = BigNumber.from('0x13BAB'.toLocaleLowerCase()).and(BigNumber.from("0xffffff"))
+        const percentage = BigNumber.from(20)
+        const amountEnergy = expandTo6Decimals(70383 * 2)
+
+        const chainId = 44787
+        console.log("deployer, signer", deployer.address, signer.address, nodeId.toHexString())
+
+        const privateKeyManager = process.env.BSC_TESTNET_PRIVATE_KEY as string
+
+        const digest = getGreenBTC2SBuyNodeDigest(
+          'Green BTC Club',
+          GreenBTC2SAddress,
+          signer.address, nodeId, percentage, amountEnergy,
+          chainId
+        )
+
+        const {v,r,s} = ecsign(Buffer.from(digest.slice(2), 'hex'), Buffer.from(privateKeyManager.slice(2), 'hex'))   
+
+        const gasPrice = await ethers.provider.getGasPrice()  
+//      const buyNodeTx = await GreenBTC2S!.connect(signer).callStatic['buyNode'](nodeId, percentage, amountEnergy, {v,r,s}, {gasPrice: gasPrice})
+//      console.log("ART airdrop: ", buyNodeTx)
+
+        let buyNodeTx = await GreenBTC2S.connect(signer).buyNode(nodeId, percentage, amountEnergy, {v,r,s}, {gasPrice: gasPrice.mul(130).div(100)})
+        const receipt = await buyNodeTx.wait()
+        console.log('buyNode gas usage:', receipt.gasUsed )
+
+    }
+*/    
+  }
+
 
 };
 
@@ -608,9 +731,25 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:matic:GreenBTC2SI
 // call: registerDomain to register domain 67/68/69/70
 
-// 2025/02/18: Call registerDomain (Ploygon Mainnet): 0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45
+// 2025/03/03: Call registerDomain (BSC Testnet): 0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45
 // yarn deploy:bsc_test:GreenBTC2SI
-// call: registerDomain to register domain 131
+// call: buyNode
+
+// 2025/03/04A: Call registerDomain (BSC Testnet): 0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45
+// yarn deploy:bsc_test:GreenBTC2SI
+// call: buyNode
+
+// 2025/03/04B: Call registerDomain (BSC Testnet): 0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45
+// yarn deploy:bsc_test:GreenBTC2SI
+// call: registerDomain
+
+// 2025/03/06: Call registerDomain (BSC Testnet): 0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45
+// yarn deploy:celo_test:GreenBTC2SI
+// call: buyNode: 0x13BAA / 0x13BAB:  // !!!!!!!!!!!! Need to approve and setLuckyManager First
+
+// 2025/03/06: Call registerDomain (BSC Testnet): 0xF8bd14e5aF9177FfDB9fE903a76b684986D7FB45
+// yarn deploy:celo_test:GreenBTC2SI
+// call: registerDomain: 0x13BAA / 0x13BAB
 
 func.tags = ["GreenBTC2SI"];
 

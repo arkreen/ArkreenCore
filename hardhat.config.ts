@@ -109,7 +109,7 @@ const config: HardhatUserConfig = {
     },
     celo_test: {
       url: getURL("celo_test"),
-      accounts: [process.env.MATIC_TESTNET_PRIVATE_KEY as string, process.env.MATIC_TESTNET_CONFIRM_KEY as string],
+      accounts: [process.env.MATIC_TESTNET_PRIVATE_KEY as string, process.env.BSC_TESTNET_CONFIRM_KEY as string],
     },
     celo: {
       url: getURL("celo"),

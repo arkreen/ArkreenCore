@@ -98,13 +98,6 @@ contract GreenBTC2S is
         __Ownable_init_unchained();
         kWhToken        = kWh;
         domainManager   = manager;
-    }
-
-    function _authorizeUpgrade(address newImplementation) internal virtual override onlyOwner
-    {}
-
-    function postUpdate() external onlyProxy onlyOwner 
-    {
         _DOMAIN_SEPARATOR = keccak256(
             abi.encode(
                 keccak256('EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)'),
@@ -115,6 +108,12 @@ contract GreenBTC2S is
             )
         );  
     }
+
+    function _authorizeUpgrade(address newImplementation) internal virtual override onlyOwner
+    {}
+
+    function postUpdate() external onlyProxy onlyOwner 
+    {}
 
     modifier onlyManager() {
         require((_msgSender() == owner()) || (_msgSender() == domainManager), "GBTC: Not Manager");
