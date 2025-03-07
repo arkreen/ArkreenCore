@@ -18,8 +18,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     console.log("Deploying: ", "kWh Token Test", deployer);  
 
     const art = "0x57Fe6324538CeDd43D78C975118Ecf8c137fC8B2"
-/*
-    const artTest = await deploy('KWhTokenT', {
+
+    const kWhTokenT = await deploy('KWhTokenT', {
       from: deployer,
       proxy: {
         proxyContract: "UUPSProxy",
@@ -34,9 +34,9 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       skipIfAlreadyDeployed: false,
       gasPrice: gasPrice.mul(130).div(100),
     });
-*/  
 
-   
+
+/*   
     // 2025/03/06
     const IMPLEMENTATION_ADDRESS ="0xf2A4A61d7299815c9D1A5FDf39cbB1981CB78Ce3"
     const callData = KWhTokenT__factory.createInterface().encodeFunctionData("initialize", [art, 1_000_000_000, deployer, '', ''])
@@ -47,7 +47,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
             skipIfAlreadyDeployed: false,
             gasPrice: gasPrice.mul(130).div(100),
     });
-
+*/
     console.log("ArkreenRECToken Test deployed to %s: ", hre.network.name, kWhTokenT.address);
 };
 
@@ -68,8 +68,13 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
 // 2025/03/06
 // yarn deploy:celo_test:WKHDT         // kWh Test Token on Celo
-// Proxy:                 0x0a9E5889f0bd049583093a31E375Fd15427F8773        (UUPS) (No convert funaction)
+// Proxy:                 0x0a9E5889f0bd049583093a31E375Fd15427F8773        (UUPS) 
 // Implementaion:         0xf2A4A61d7299815c9D1A5FDf39cbB1981CB78Ce3
+
+// 2025/03/07
+// yarn deploy:hashkey_test:WKHDT         // kWh Test Token on HashKey Testnet
+// Proxy:                 0x207678fae50E34Ea254eC16B532c381445B22419        (UUPS)
+// Implementaion:         0x5a75EF3835DF1153704d41ff84733D33deE49DFF
 
 func.tags = ["WKHDT"];
 

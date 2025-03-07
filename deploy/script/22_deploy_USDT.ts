@@ -13,7 +13,6 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const { deployer, controller } = await getNamedAccounts();
 
     //const defaultGasPrice = (hre.network.name === 'matic_test') ? BigNumber.from(3_000_000_000) : BigNumber.from(100000000000)
-    const defaultGasPrice = (hre.network.name === 'celo_test') ? BigNumber.from(32_000_000_000) : BigNumber.from(100000000000)
 
     let USDT_NAME: string
     let USDT_SYMBOL
@@ -31,8 +30,13 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       // 2024/04/16: Amoy testnet       
       // 2025/02/14: celo testnet              
       // 2025/02/27: bsc testnet                                    
+/*      
       USDT_NAME = 'Tether USD'
       USDT_SYMBOL  = "USDT"   
+*/
+      USDT_NAME = 'USD Coin'
+      USDT_SYMBOL  = "USDC"   
+
       USDT_DECIMAL = 6     
       USDT_MANAGER = deployer     
 //    }
@@ -99,6 +103,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:bsc_test:USDT        : bsc testnet
 // Proxy:                 0x93eFC409Ff44788E8b1DAF395F46965046cAe84B (Proxy)
 // Implementaion:         0xC3B5EfC5E7fC7F28C2a8321382a3c3Bd47869E03 
+
+// 2025/03/07
+// yarn deploy:hashkey_test:USDT    : hashkey testnet: Deploy USDC
+// USDC Proxy:            0x7D94aeE379D083eA8027318a804e289e36638DEF (Proxy)
+// USDC Implementaion:    0x1F026ff412C90968dA34b5b09C822020693D60B2  
 
 func.tags = ["USDT"];
 

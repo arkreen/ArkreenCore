@@ -27,11 +27,16 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 //    const mintAddress  = "0xa9c791f20b08AB9F0Ff160B3A2b6492C9228cdF6"         // Hashkey testnet
 //    const valueUSDT = "1000000000000000"
 
+      const USDTAddress  = "0x7D94aeE379D083eA8027318a804e289e36638DEF"         // Hashkey testnet
+      const mintAddress  = "0xa9c791f20b08AB9F0Ff160B3A2b6492C9228cdF6"         // Hashkey testnet
+      const valueUSDT = "1000000000000000"
+
+/*
       // BSC testnet:   2025/02/28
       const USDTAddress  = "0x93eFC409Ff44788E8b1DAF395F46965046cAe84B"         // BSC testnet
       const mintAddress  = "0x364a71eE7a1C9EB295a4F4850971a1861E9d3c7D"         // BSC testnet
       const valueUSDT = "1000000000000000"
-
+*/
       const USDTFactory = UChildERC20__factory.connect(USDTAddress, deployer);
 
       const feeData = await deployer.getFeeData()
@@ -69,6 +74,10 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // 2025/02/28
 // yarn deploy:bsc_test:USDTI         : bsc testnet 
 // deposit to 0x93eFC409Ff44788E8b1DAF395F46965046cAe84B: 100000000 USDT
+
+// 2025/03/07
+// yarn deploy:hashkey_test:USDTI     : Amoy testnet (Dev Anv)
+// deposit to 0xa9c791f20b08AB9F0Ff160B3A2b6492C9228cdF6: 100000000 USDC
 
 func.tags = ["USDTI"];
 

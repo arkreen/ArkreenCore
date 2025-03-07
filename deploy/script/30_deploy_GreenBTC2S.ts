@@ -25,6 +25,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
       kWh = "0xb50663a9848A8CDa219756488406cCA19F8b2F28"
     } else if(hre.network.name === 'celo_test')  {
       kWh = "0x0a9E5889f0bd049583093a31E375Fd15427F8773"
+    } else if(hre.network.name === 'hashkey_test')  {
+      kWh = "0x207678fae50E34Ea254eC16B532c381445B22419"
     }  
 
     const gasPrice = await ethers.provider.getGasPrice()  
@@ -87,6 +89,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 // yarn deploy:celo_test:GreenBTC2S    : Celo testnet
 // Proxy:                 0x64acd7936e7e0BCFa9629dD2Ed2bf45e57CBbB3D
 // Implementaion:         0xCb9eA8eB5d0EE637a99948f7636BA68f6F183d52
+
+// 2025/03/07
+// yarn deploy:hashkey_test:GreenBTC2S    : Hashkey testnet
+// Proxy:                 0x627E9321ed90b199E75D239E30c5D20ad77a4B93
+// Implementaion:         0x417E871A54bE7B4e6cb89762E415605FaB5C2c9e
 
 func.tags = ["GreenBTC2S"];
 

@@ -309,6 +309,11 @@
 
     "deploy:hashkey_test:USDT": "hardhat --network hashkey_test deploy --tags USDT",
     "deploy:hashkey_test:USDTI": "hardhat --network hashkey_test deploy --tags USDTI",
+    "deploy:hashkey_test:WKHDT": "hardhat --network hashkey_test deploy --tags WKHDT",
+    "deploy:hashkey_test:WKHI": "hardhat --network hashkey_test deploy --tags WKHI",
+    "deploy:hashkey_test:GreenBTC2S": "hardhat --network hashkey_test deploy --tags GreenBTC2S",
+    "deploy:hashkey_test:GreenBTC2SI": "hardhat --network hashkey_test deploy --tags GreenBTC2SI",
+    "deploy:hashkey_test:GreenBTC2SU": "hardhat --network hashkey_test deploy --tags GreenBTC2SU",
 
     "deploy:bsc_test:USDT": "hardhat --network bsc_test deploy --tags USDT",
     "deploy:bsc_test:USDTI": "hardhat --network bsc_test deploy --tags USDTI",

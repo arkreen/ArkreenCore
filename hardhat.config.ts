@@ -133,12 +133,12 @@ const config: HardhatUserConfig = {
     hashkey_test: {
       url: getURL("hashkey_test"),
       chainId: 133,
-      accounts: [process.env.MATIC_TESTNET_PRIVATE_KEY as string, process.env.MATIC_TESTNET_CONFIRM_KEY as string],
+      accounts: [process.env.MATIC_TESTNET_HSK_PRIVATE_KEY as string, process.env.BSC_TESTNET_CONFIRM_KEY as string],
     },
     hashkey: {
       url: getURL("hashkey"),
       chainId: 177,
-      accounts: [process.env.MATIC_PRIVATE_KEY as string, process.env.MATIC_CONTROLLER_KEY as string],
+      accounts: [process.env.MATIC_TESTNET_HSK_PRIVATE_KEY as string, process.env.BSC_TESTNET_CONFIRM_KEY as string],
     },
    
     matic_test: {
