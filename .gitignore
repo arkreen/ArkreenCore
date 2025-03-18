@@ -1,0 +1,19 @@
+node_modules
+.env
+.openzeppelin
+.temp
+coverage
+coverage.json
+typechain
+typechain-types
+yarn-error.log
+
+#Hardhat files
+/cache
+/artifacts
+/docs
+/storageLayout
+/flatten
+/deployments
+/.cspell
+/.vscode

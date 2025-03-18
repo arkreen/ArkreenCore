@@ -1,0 +1,111 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+import '../interfaces/IFeSwapRouter.sol';
+
+contract RouterEventEmitter {
+    event Amounts(uint[] amounts);
+
+    receive() external payable {}
+
+    function encodeFunc(
+        address router,
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external pure returns (bytes memory returnData)  {
+        returnData = abi.encodeWithSelector(
+            IFeSwapRouter(router).swapExactTokensForTokens.selector, amountIn, amountOutMin, path, to, deadline
+        );
+    }
+
+    function swapExactTokensForTokens(
+        address router,
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external {
+        (bool success, bytes memory returnData) = router.delegatecall(abi.encodeWithSelector(
+            IFeSwapRouter(router).swapExactTokensForTokens.selector, amountIn, amountOutMin, path, to, deadline
+        ));
+        assert(success);
+        emit Amounts(abi.decode(returnData, (uint[])));
+    }
+
+    function swapTokensForExactTokens(
+        address router,
+        uint amountOut,
+        uint amountInMax,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external {
+        (bool success, bytes memory returnData) = router.delegatecall(abi.encodeWithSelector(
+            IFeSwapRouter(router).swapTokensForExactTokens.selector, amountOut, amountInMax, path, to, deadline
+        ));
+        assert(success);
+        emit Amounts(abi.decode(returnData, (uint[])));
+    }
+
+    function swapExactETHForTokens(
+        address router,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external payable {
+        (bool success, bytes memory returnData) = router.delegatecall(abi.encodeWithSelector(
+            IFeSwapRouter(router).swapExactETHForTokens.selector, amountOutMin, path, to, deadline
+        ));
+        assert(success);
+        emit Amounts(abi.decode(returnData, (uint[])));
+    }
+
+    function swapTokensForExactETH(
+        address router,
+        uint amountOut,
+        uint amountInMax,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external {
+        (bool success, bytes memory returnData) = router.delegatecall(abi.encodeWithSelector(
+            IFeSwapRouter(router).swapTokensForExactETH.selector, amountOut, amountInMax, path, to, deadline
+        ));
+        assert(success);
+        emit Amounts(abi.decode(returnData, (uint[])));
+    }
+
+    function swapExactTokensForETH(
+        address router,
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external {
+        (bool success, bytes memory returnData) = router.delegatecall(abi.encodeWithSelector(
+            IFeSwapRouter(router).swapExactTokensForETH.selector, amountIn, amountOutMin, path, to, deadline
+        ));
+        assert(success);
+        emit Amounts(abi.decode(returnData, (uint[])));
+    }
+
+    function swapETHForExactTokens(
+        address router,
+        uint amountOut,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external payable {
+        (bool success, bytes memory returnData) = router.delegatecall(abi.encodeWithSelector(
+            IFeSwapRouter(router).swapETHForExactTokens.selector, amountOut, path, to, deadline
+        ));
+        assert(success);
+        emit Amounts(abi.decode(returnData, (uint[])));
+    }
+}
