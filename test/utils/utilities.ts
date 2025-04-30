@@ -343,7 +343,7 @@ export function getGreenBTC2SBuyNodeDigest(
   nodeId: BigNumber,
   percentage: BigNumber,
   amountEnergy: BigNumber,
-  chainId: number
+  chainId?: number
 ): string {
 
   const version = "2"
@@ -940,9 +940,6 @@ export function getGreenBitcoinClaimGiftsRaw(
     )
 }
 
-
-
-
 export function getPlugActionInfoHash(
   contractName:     string,
   contractAddress:  string,
@@ -1013,6 +1010,79 @@ export function getCspActionInfoHash(
     )
   )
 }
+
+export function getBatteryActionInfoHash(
+  contractName:     string,
+  contractAddress:  string,
+  txid:             string,
+  plugActionInfo:   PlugActionInfo,
+  nonce:            BigNumber,
+  deadline:         BigNumber
+): string {
+
+  const DOMAIN_SEPARATOR = getDomainSeparator(contractName, contractAddress, '1')
+
+  // keccak256("ActionBatteryMiner(address txid,(address owner,address tokenPay,uint256 amountPay,address tokenGet,uint256 amountGet,bytes32 actionType,uint256 action),uint256 nonce,uint256 deadline)");
+  //bytes32 public constant  ACTION_BATTERY = 0x6494E73D4B74CB420F93F5B50E86EDC7C510308F62D12DF8237B9C85F0594ABD;
+
+  const ACTION_BATTERY = utils.keccak256(
+    utils.toUtf8Bytes("ActionBatteryMiner(address txid,(address owner,address tokenPay,uint256 amountPay,address tokenGet,uint256 amountGet,bytes32 actionType,uint256 action),uint256 nonce,uint256 deadline)")
+  )
+
+  return utils.keccak256( 
+    utils.solidityPack(
+      ['bytes1', 'bytes1', 'bytes32', 'bytes32'],
+      [
+        '0x19',
+        '0x01',
+        DOMAIN_SEPARATOR,
+        utils.keccak256(
+          utils.defaultAbiCoder.encode(
+            ['bytes32', 'address', '(address owner,address tokenPay,uint256 amountPay,address tokenGet,uint256 amountGet,bytes32 actionType,uint256 action)', 'uint256', 'uint256'],
+            [ACTION_BATTERY, txid, plugActionInfo, nonce, deadline]
+          )
+        )
+      ]
+    )
+  )
+}
+
+export function getLuckyDrawRedeemHash(
+  contractName:     string,
+  contractAddress:  string,
+  owner:            string,
+  luckyId:          number,
+  blockHeight:      number,
+  blockHash:        string
+): string {
+
+  const DOMAIN_SEPARATOR = getDomainSeparator(contractName, contractAddress, '1')
+
+  // keccak256("redeemLuckyWithHash(address owner,uint256 luckyId,uint256 blockHeight,byte32 blockHash)");
+  //bytes32 public constant  REDEEM_LUCKY_TYPEHASH = 0x3C892242239DC88794675D2B09BF838DB92B3EEA8ECEA13FAC3AA16F95AF807D;
+
+  const REDEEM_LUCKY_TYPEHASH = utils.keccak256(
+    utils.toUtf8Bytes("redeemLuckyWithHash(address owner,uint256 luckyId,uint256 blockHeight,byte32 blockHash)")
+  )
+
+  return utils.keccak256( 
+    utils.solidityPack(
+      ['bytes1', 'bytes1', 'bytes32', 'bytes32'],
+      [
+        '0x19',
+        '0x01',
+        DOMAIN_SEPARATOR,
+        utils.keccak256(
+          utils.defaultAbiCoder.encode(
+            ['bytes32', 'address', 'uint256', 'uint256', 'bytes32'],
+            [REDEEM_LUCKY_TYPEHASH, owner, luckyId, blockHeight, blockHash]
+          )
+        )
+      ]
+    )
+  )
+}
+
 
 export interface ActionInfo {
   actionID:             BigNumber,

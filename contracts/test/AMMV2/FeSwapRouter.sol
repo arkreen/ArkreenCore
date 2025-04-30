@@ -11,7 +11,7 @@ import "./interfaces/IWETH.sol";
 import "./patch/RouterPatchCaller.sol";
 import "./interfaces/IFeSwapRouter.sol";
 
-contract FeSwapRouter is IFeSwapRouter, RouterPatchCaller{
+contract FeSwapRouter is IFeSwapRouter, RouterPatchCaller {
 
     using SafeMath for uint;
 

@@ -1,0 +1,52 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.24;
+
+import {CustomRevert} from "./CustomRevert.sol";
+
+/// @notice This is a temporary library that allows us to use transient storage (tstore/tload)
+/// TODO: This library can be deleted when we have the transient keyword support in solidity.
+abstract contract ReentryLock {
+
+    using CustomRevert for bytes4;
+
+    // The slot holding the Locked state transiently. bytes32(uint256(keccak256("ReentryLock")) - 1)
+    bytes32 internal constant REENTRY_LOCK_SLOT = 0xC433E118D1466791E06BF9AC2B9C8A6A92C7BFD5564F64CC2FA7B94A19A5ED44;
+
+    /**
+     * @dev Unauthorized reentrant call.
+     */
+    error ReentrantCall();
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        if (isLocked()) ReentrantCall.selector.revertWith();
+        lock();
+        _;
+        unlock();
+    }
+
+    function lock() internal {
+        assembly ("memory-safe") {
+            tstore(REENTRY_LOCK_SLOT, true)
+        }
+    }
+
+    function unlock() internal {
+        assembly ("memory-safe") {
+            tstore(REENTRY_LOCK_SLOT, false)
+        }
+    }
+
+    function isLocked() internal view returns (bool locked) {
+        assembly ("memory-safe") {
+            locked := tload(REENTRY_LOCK_SLOT)
+        }
+    }
+}

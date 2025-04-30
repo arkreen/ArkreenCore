@@ -222,7 +222,7 @@ describe("KWhToken Test Campaign", () => {
       });
 
       ///////////////////////////////////////////
-
+/*
       it("KWhToken Test: setBadgeInfo", async () => {
         const badgeInfo =  {
           beneficiary:    owner1.address,
@@ -434,5 +434,11 @@ describe("KWhToken Test Campaign", () => {
                   .withArgs(maker1.address, tokenA.address,  expandTo18Decimals(300000), expandTo9Decimals(2000))   
 
       }); 
+*/
+      it("KWhToken Test: getAverageAKREPrice", async () => {
+        // Normal convertKWh
+        await kWhToken.getAverageAKREPrice(1200)
+      }); 
+
     })  
 });

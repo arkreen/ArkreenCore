@@ -7,6 +7,8 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 
 import "../libraries/TransferHelper.sol";
+import "../interfaces/IUniswapV3Pool.sol";
+import "../libraries/TickMath.sol";
 
 contract KWhTokenT is
     ReentrancyGuardUpgradeable,
@@ -20,6 +22,11 @@ contract KWhTokenT is
 
     address public tokenART;
     mapping(address => uint256) public priceForSwap;            // Mapping ART/USDC/USDT -> ConverterInfo
+
+    address public akre;
+    address public akrePair;
+    bool    public akreIsToken1;
+    uint256 public lastAKREPrice;
 
     // Events
     event ARTConverted(address indexed user, address indexed tokenPayemnt, uint256 amountPayment, uint256 amountKWh);
@@ -59,18 +66,70 @@ contract KWhTokenT is
         return 6;
     }
 
-        /**
+    function setAKREPair(address _akre, address _akrePair) external onlyOwner {
+        akre = _akre;
+        akrePair = _akrePair;
+        address token1 = IUniswapV3Pool(_akrePair).token1();
+        akreIsToken1 = (_akre == token1);
+    }
+
+    /**
+     * @dev Get the average price of 10 seconds ago, in the amount of AKRE what 1 USDC.e can buy
+     */
+    function getAverageAKREPrice(uint256 duration) public view returns (uint256) {
+      uint32[] memory secondsAgos = new uint32[](2);
+      secondsAgos[0] = 10;
+      secondsAgos[1] = uint32(duration) + 10;             
+      (int56[] memory tickCumulatives, ) = IUniswapV3Pool(akrePair).observe(secondsAgos);
+      int24 tickMean = int24((tickCumulatives[0] - tickCumulatives[1]) / int56(uint56(duration)));
+      uint256 sqrtPriceX96 = TickMath.getSqrtRatioAtTick(tickMean);
+      sqrtPriceX96 = sqrtPriceX96 / (2**32); 
+      sqrtPriceX96 = sqrtPriceX96 * sqrtPriceX96 * 1_000_000 / (2**128);  // Mutiply by 10**6 for 1 USDC
+      return sqrtPriceX96;
+    }
+
+    /**
+     * @dev Get the amount of AKRE what 1 USDC.e can buy
+     */
+    function getAKREPrice() public view returns (uint256) {
+      (uint256 sqrtPriceX96, , , , , , ) = IUniswapV3Pool(akrePair).slot0();
+      sqrtPriceX96 = sqrtPriceX96 / (2**32); 
+      sqrtPriceX96 = sqrtPriceX96 * sqrtPriceX96 * 1_000_000 / (2**128);  // Mutiply by 10**6 for 1 USDC
+      return sqrtPriceX96;
+    }
+    
+    /**
      * @dev Convert ART/USDC/UDSDT tokens to kWh tokens
      * @param tokenToPay Address of the payment token used to pay for swapping ART
      * @param amountPayment amount of the tokeen to swap out
      */
     function convertKWh(address tokenToPay, uint256 amountPayment) external nonReentrant returns (uint256) {
-        uint256 price = priceForSwap[tokenToPay];
-        require (price != 0, "kWh: Payment Token Not Supported");
 
-        uint256 amountKWh = amountPayment;
-        if (tokenToPay != tokenART) amountKWh = amountPayment * (10**6) / price;      // kWh decimal is 6, so hardcoded here
+        uint256 amountKWh;
+        if (tokenToPay == akre) {
+            uint256 price = getAKREPrice();
+            uint256 lastPrice = lastAKREPrice;
+            if (lastPrice != 0) {
+                uint256 diff = (price >= lastPrice) ? (price - lastPrice) : (lastPrice - price);
+                // Current price cannot be more 5% change compared to the last swap price and the average price. 
+                if ((diff * 100 / price) >= 5) {
+                    uint256 averagePrice = getAverageAKREPrice(1200);
+                    diff = (price >= averagePrice) ? (price - averagePrice) : (averagePrice - price);
+                    require ((diff * 100 / price) < 5, "Price unstable"); 
+                }
+            } 
 
+            lastAKREPrice = price;
+            amountPayment = amountPayment & ((1<<128)-1);
+            amountKWh = amountPayment * (10**8) / price;    // 1U = 100kWh = 10**8
+
+        } else {
+            uint256 price = priceForSwap[tokenToPay];
+            require (price != 0, "kWh: Payment Token Not Supported");
+
+            amountKWh = amountPayment;
+            if (tokenToPay != tokenART) amountKWh = amountPayment * (10**6) / price;      // kWh decimal is 6, so hardcoded here
+        }
         require(IERC20Upgradeable(tokenToPay).transferFrom(msg.sender, address(this), amountPayment));
         require(IERC20Upgradeable(this).transfer(msg.sender, amountKWh));
 

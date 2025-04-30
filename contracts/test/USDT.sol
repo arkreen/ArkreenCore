@@ -1,12 +1,7 @@
-/**
- *Submitted for verification at polygonscan.com on 2021-06-29
-*/
-
 // File: @openzeppelin/contracts/GSN/Context.sol
-
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity ^0.8.9;
 
 /*
  * @dev Provides information about the current execution context, including the
@@ -20,7 +15,7 @@ pragma solidity ^0.6.0;
  */
 abstract contract Context {
     function _msgSender() internal view virtual returns (address payable) {
-        return msg.sender;
+        return payable(msg.sender);
     }
 
     function _msgData() internal view virtual returns (bytes memory) {
@@ -31,9 +26,9 @@ abstract contract Context {
 
 // File: @openzeppelin/contracts/token/ERC20/IERC20.sol
 
-// SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+
+pragma solidity ^0.8.9;
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
@@ -111,9 +106,9 @@ interface IERC20 {
 
 // File: @openzeppelin/contracts/math/SafeMath.sol
 
-// SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+
+pragma solidity ^0.8.9;
 
 /**
  * @dev Wrappers over Solidity's arithmetic operations with added overflow
@@ -273,9 +268,9 @@ library SafeMath {
 
 // File: @openzeppelin/contracts/utils/Address.sol
 
-// SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.2;
+
+pragma solidity ^0.8.9;
 
 /**
  * @dev Collection of functions related to the address type
@@ -417,9 +412,9 @@ library Address {
 
 // File: contracts/child/ChildToken/UpgradeableChildERC20/ERC20.sol
 
-// SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+
+pragma solidity ^0.8.9;
 
 
 
@@ -480,9 +475,9 @@ contract ERC20 is Context, IERC20 {
      * All three of these values are immutable: they can only be set once during
      * construction.
      */
-    constructor (string memory name, string memory symbol) public {
-        _name = name;
-        _symbol = symbol;
+    constructor (string memory name_, string memory symbol_) {
+        _name = name_;
+        _symbol = symbol_;
         _decimals = 18;
     }
 
@@ -746,9 +741,9 @@ contract ERC20 is Context, IERC20 {
 
 // File: @openzeppelin/contracts/utils/EnumerableSet.sol
 
-// SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+
+pragma solidity ^0.8.9;
 
 /**
  * @dev Library for managing
@@ -893,7 +888,7 @@ library EnumerableSet {
      * already present.
      */
     function add(AddressSet storage set, address value) internal returns (bool) {
-        return _add(set._inner, bytes32(uint256(value)));
+        return _add(set._inner, bytes32(uint256(uint160(value))));
     }
 
     /**
@@ -903,14 +898,14 @@ library EnumerableSet {
      * present.
      */
     function remove(AddressSet storage set, address value) internal returns (bool) {
-        return _remove(set._inner, bytes32(uint256(value)));
+        return _remove(set._inner, bytes32(uint256(uint160(value))));
     }
 
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
     function contains(AddressSet storage set, address value) internal view returns (bool) {
-        return _contains(set._inner, bytes32(uint256(value)));
+        return _contains(set._inner, bytes32(uint256(uint160(value))));
     }
 
     /**
@@ -931,7 +926,7 @@ library EnumerableSet {
     * - `index` must be strictly less than {length}.
     */
     function at(AddressSet storage set, uint256 index) internal view returns (address) {
-        return address(uint256(_at(set._inner, index)));
+        return address(uint160(uint256(_at(set._inner, index))));
     }
 
 
@@ -992,9 +987,9 @@ library EnumerableSet {
 
 // File: @openzeppelin/contracts/access/AccessControl.sol
 
-// SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+
+pragma solidity ^0.8.9;
 
 
 
@@ -1211,7 +1206,7 @@ abstract contract AccessControl is Context {
 
 // File: contracts/common/AccessControlMixin.sol
 
-pragma solidity 0.6.6;
+pragma solidity ^0.8.9;
 
 
 contract AccessControlMixin is AccessControl {
@@ -1231,7 +1226,7 @@ contract AccessControlMixin is AccessControl {
 
 // File: contracts/child/ChildToken/IChildToken.sol
 
-pragma solidity 0.6.6;
+pragma solidity ^0.8.9;
 
 interface IChildToken {
     function deposit(address user, bytes calldata depositData) external;
@@ -1239,7 +1234,7 @@ interface IChildToken {
 
 // File: contracts/common/Initializable.sol
 
-pragma solidity 0.6.6;
+pragma solidity ^0.8.9;
 
 contract Initializable {
     bool inited = false;
@@ -1253,7 +1248,7 @@ contract Initializable {
 
 // File: contracts/common/EIP712Base.sol
 
-pragma solidity 0.6.6;
+pragma solidity ^0.8.9;
 
 
 contract EIP712Base is Initializable {
@@ -1300,7 +1295,7 @@ contract EIP712Base is Initializable {
         return domainSeperator;
     }
 
-    function getChainId() public pure returns (uint256) {
+    function getChainId() public view returns (uint256) {
         uint256 id;
         assembly {
             id := chainid()
@@ -1329,7 +1324,7 @@ contract EIP712Base is Initializable {
 
 // File: contracts/common/NativeMetaTransaction.sol
 
-pragma solidity 0.6.6;
+pragma solidity ^0.8.9;
 
 
 
@@ -1381,7 +1376,7 @@ contract NativeMetaTransaction is EIP712Base {
 
         emit MetaTransactionExecuted(
             userAddress,
-            msg.sender,
+            payable(msg.sender),
             functionSignature
         );
 
@@ -1435,7 +1430,7 @@ contract NativeMetaTransaction is EIP712Base {
 
 // File: contracts/ChainConstants.sol
 
-pragma solidity 0.6.6;
+pragma solidity ^0.8.9;
 
 contract ChainConstants {
     string constant public ERC712_VERSION = "1";
@@ -1449,7 +1444,7 @@ contract ChainConstants {
 
 // File: contracts/common/ContextMixin.sol
 
-pragma solidity 0.6.6;
+pragma solidity ^0.8.9;
 
 abstract contract ContextMixin {
     function msgSender()
@@ -1468,7 +1463,7 @@ abstract contract ContextMixin {
                 )
             }
         } else {
-            sender = msg.sender;
+            sender = payable(msg.sender);
         }
         return sender;
     }
@@ -1476,7 +1471,7 @@ abstract contract ContextMixin {
 
 // File: contracts/child/ChildToken/UpgradeableChildERC20/UChildERC20.sol
 
-pragma solidity 0.6.6;
+pragma solidity ^0.8.9;
 
 contract UChildERC20 is
     ERC20,
@@ -1488,7 +1483,7 @@ contract UChildERC20 is
 {
     bytes32 public constant DEPOSITOR_ROLE = keccak256("DEPOSITOR_ROLE");
 
-    constructor() public ERC20("", "") {}
+    constructor() ERC20("", "") {}
 
     /**
      * @notice Initialize the contract after it has been proxified

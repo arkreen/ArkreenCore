@@ -87,6 +87,10 @@ contract StakingRewards is IArkreenMinerListener, ReentrancyGuardUpgradeable, Ow
         _;
     }
 
+    function changeDistributor(address newDistributor) external onlyOwner {
+        rewardsDistributor = newDistributor;
+    }
+
     function setStakeParameter(uint256 newPremiumCap, uint256 newPremiumRate) public onlyOwner{
         if (newPremiumCap != 0) {
             capMinerPremium = uint128(newPremiumCap);
